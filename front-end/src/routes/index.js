@@ -1,23 +1,23 @@
 
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Login from './pages/login';
-import Register from './pages/register';
-import Saller from './pages/saller';
-import Customers from './paCes/customers';
-import Admin from './pages/admin';
-import Products from ''
-import CustomerOrders from ''
-import Checkout from ''
-import Saller from ''
-import AllOrders from ''
+// import Login from './pages/login';
+// import Register from './pages/register';
+// import Saller from './pages/saller';
+// import Customers from './paCes/customers';
+// import Admin from './pages/admin';
+// import Products from ''
+// import CustomerOrders from ''
+// import Checkout from ''
+// import Saller from ''
+// import AllOrders from ''
 
 export default class Routes extends Component {
   render() {
     return (
       <div>
         <main>
-          <Switch>
+          {/* <Switch>
             <Route exact path="/">
               <Redirect to="/login" />
             </Route>
@@ -30,7 +30,7 @@ export default class Routes extends Component {
             <Route exact path="/saller" component={ Saller } />
             <Route exact path="/saller/orders" component={ AllOrders } />
             <Route exact path="/admin" component={ Admin } />
-          </Switch>
+          </Switch> */}
         </main>
       </div>
     );
