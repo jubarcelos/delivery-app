@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function Login() {
+function products() {
   return (
     <>
-      <h1> Login</h1>
+      <h1> Products</h1>
     </>
   )
-}
+};
 
-export default Login;
+export default products;

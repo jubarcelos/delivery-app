@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function Login() {
+function register() {
   return (
     <>
-      <h1> Login</h1>
+      <h1> register</h1>
     </>
   )
-}
+};
 
-export default Login;
+export default register;
