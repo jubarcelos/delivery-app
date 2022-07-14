@@ -9,7 +9,6 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 // import Products from ''
 // import CustomerOrders from ''
 // import Checkout from ''
-// import Saller from ''
 // import AllOrders from ''
 
 export default class Routes extends Component {
