@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Login from './pages/login/index.jsx';
+// import Login from './pages/login';
 // import Register from './pages/register';
 // import Saller from './pages/saller';
 // import Customers from './paCes/customers';
@@ -19,7 +19,7 @@ export default class Routes extends Component {
             <Route exact path="/">
               <Redirect to="/login" />
             </Route>
-            <Route exact path="/login" component={ Login } />
+            {/* <Route exact path="/login" component={ Login } /> */}
             {/* <Route exact path="/register" component={ Register } />
             <Route exact path="/customer" component={ Customers } />
             <Route exact path="/customer/products" component={ Products } />
