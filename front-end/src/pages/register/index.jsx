@@ -7,8 +7,19 @@ class Register extends React.Component {
       nome: '',
       email: '',
       senha: '',
+      errorMessage: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    // fazer requisição pro backend;
+    // 1. sucesso: 201
+    // redirecionar para costumer/products
+    // 2. erro: 409
+    // setar a mensagem de erro no erro mensage state.
+    // this.setState({ errorMessage: 'bla bla bla' });
   }
 
   handleChange({ target }) {
@@ -34,7 +45,7 @@ class Register extends React.Component {
   }
 
   render() {
-    const { nome, email, senha } = this.state;
+    const { nome, email, senha, errorMessage } = this.state;
     return (
       <div>
         <div>
@@ -61,17 +72,24 @@ class Register extends React.Component {
             type="text"
             name="senha"
             value={ senha }
-            data-testid="password-input"
+            data-testid="8"
             placeholder="******"
             onChange={ this.handleChange }
           />
           <button
             type="button"
             disabled={ !this.validate(nome, email, senha) }
-            // onClick={ this.handleClick }
+            data-testid="9"
+            onClick={ this.handleClick }
           >
             CADASTRAR
           </button>
+          <span
+            name="common_register__element-invalid_register"
+            hidden={ !errorMessage }
+          >
+            { errorMessage }
+          </span>
         </div>
       </div>
     );
