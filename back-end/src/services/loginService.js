@@ -2,11 +2,11 @@ const { user } = require('../database/models');
 const { createToken } = require('../utils/jwt');
 
 const login = async ({ email, password }) => {
-  const userFound = await user.findOne({ where: { email, password }});
+  const userFound = await user.findOne({ where: { email, password } });
 
   if (!userFound) {
     return {
-      err: 'user not found',
+      batata: 'Not found',
     };
   }
 
