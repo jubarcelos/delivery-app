@@ -88,7 +88,7 @@ function Login() {
       </button>
       <Link
         data-testid="common_login__button-register"
-        to="/customers/products"
+        to="/register"
       >
         Ainda não tenho conta
       </Link>
