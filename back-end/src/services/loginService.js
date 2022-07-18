@@ -5,14 +5,13 @@ const login = async ({ email, password }) => {
   const userFound = await user.findOne({ where: { email, password } });
 
   if (!userFound) {
-    return {
-      batata: 'Not found',
-    };
+    return false;
   }
 
-  const { password: passw, ...userWithoutPassword } = userFound.dataValues;
-  const token = createToken(userWithoutPassword);
-  return { token };
+  const { password: passw, ...userWithoutPass } = userFound.dataValues;
+  const payload = userWithoutPass;
+  const token = createToken(userWithoutPass);
+  return { user: payload , token };
 };
 
 module.exports = { login };

@@ -3,8 +3,7 @@ const loginService = require('../services/loginService');
 const login = async (req, res, _next) => {
   try {
     const result = await loginService.login(req.body);
-    console.log(result);
-    if (!result) {
+    if (result === false) {
       return res.status(404).json({ message: 'Not found' });
     }
     return res.status(200).json(result);
