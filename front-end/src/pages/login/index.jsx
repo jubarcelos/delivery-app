@@ -29,7 +29,7 @@ function Login() {
         Login
         <input
           type="text"
-          data-testid="email-input"
+          data-testid="common_login__input-email"
           name="email"
           id="email"
           placeholder="Digite seu Email"
@@ -40,7 +40,7 @@ function Login() {
       <label htmlFor="password">
         Senha
         <input
-          data-testid="password-input"
+          data-testid="common_login__input-password"
           id="password"
           name="password"
           type="password"
@@ -51,11 +51,18 @@ function Login() {
       </label>
       <button
         type="submit"
-        data-testid="login-submit-btn"
+        data-testid="common_login__button-login"
         onClick={ saveStorageLogin }
         disabled={ setDisabled() }
       >
-        Enter
+        Login
+      </button>
+      <button
+        type="submit"
+        data-testid="common_login__button-register"
+        // onClick={}
+      >
+        Ainda não tenho conta
       </button>
     </form>
   );
