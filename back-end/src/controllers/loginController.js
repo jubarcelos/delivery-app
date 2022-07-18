@@ -8,7 +8,7 @@ const login = async (req, res, _next) => {
     }
     return res.status(200).json(result);
   } catch (error) {
-    return res.status(500).send({ error: `Erro: ${error.message}`  });
+    return res.status(500).send({ error: `Erro: ${error.message}` });
   }
 };
 
