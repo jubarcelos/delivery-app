@@ -14,12 +14,19 @@ class Register extends React.Component {
   }
 
   handleClick() {
+    this.setApiData();
+    const response = this.getApiDataFromLocalStorage();
+    if (response.includes(err)) {
+      return this.setState({ errorMessage: 'este e-mail já foi cadastrado' });
+    }
+    this.history.push('customers/products');
     // fazer requisição pro backend;
     // 1. sucesso: 201
+    // pegar token no body e salvar no localStorage
     // redirecionar para costumer/products
     // 2. erro: 409
     // setar a mensagem de erro no erro mensage state.
-    // this.setState({ errorMessage: 'bla bla bla' });
+    //
   }
 
   handleChange({ target }) {
@@ -28,6 +35,21 @@ class Register extends React.Component {
       [name]: value,
     });
   }
+
+  setApiData = () => {
+    const { nome, email, senha } = this.state;
+    const url = 'https://localhost:3001/register';
+    const body = { nome, email, senha };
+    fetch(url, {
+      mothod: 'POST',
+      body: JSON.stringify(body),
+      headers: { 'Content-type': 'application/json; charset: uft8' },
+    }).then((response) => response.json())
+      .then((json) => localStorage.setItem('user', JSON.stringify({ json })))
+      .catch((err) => console.log(err));
+  }
+
+  getApiDataFromLocalStorage = () => JSON.parse(localStorage.getItem('user'));
 
   validateEmailFormat(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -56,7 +78,7 @@ class Register extends React.Component {
             type="text"
             name="nome"
             value={ nome }
-            data-testid="6"
+            data-testid="common_register__input-name"
             placeholder="Seu nome"
             onChange={ this.handleChange }
           />
@@ -64,7 +86,7 @@ class Register extends React.Component {
             type="text"
             name="email"
             value={ email }
-            data-testid="7"
+            data-testid="common_register__input-email"
             placeholder="seu-email@site.com.br"
             onChange={ this.handleChange }
           />
@@ -72,14 +94,14 @@ class Register extends React.Component {
             type="text"
             name="senha"
             value={ senha }
-            data-testid="8"
+            data-testid="common_register__input-password"
             placeholder="******"
             onChange={ this.handleChange }
           />
           <button
             type="button"
             disabled={ !this.validate(nome, email, senha) }
-            data-testid="9"
+            data-testid="common_register__button-register"
             onClick={ this.handleClick }
           >
             CADASTRAR
