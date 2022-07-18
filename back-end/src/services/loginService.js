@@ -11,7 +11,7 @@ const login = async ({ email, password }) => {
   const { password: passw, ...userWithoutPass } = userFound.dataValues;
   const payload = userWithoutPass;
   const token = createToken(userWithoutPass);
-  return { user: payload , token };
+  return { user: payload, token };
 };
 
 module.exports = { login };
