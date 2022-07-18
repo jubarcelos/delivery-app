@@ -1,26 +1,55 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
-  // const history = useHistory();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // descrever a função que transforma em hash
+  const [errorMessage, setErrorMessage] = useState('');
 
   const setDisabled = () => {
     const SIX = 6;
-    if (email.includes('@') && email.includes('.com') && password.length > SIX) {
+    if (
+      email.includes('@')
+      && email.includes('.com')
+      && password.length > SIX
+    ) {
       return false;
     }
     return true;
   };
 
-  const saveStorageLogin = (event) => {
-    event.preventDefault();
-    // localStorage
-    //   .setItem('customerOrder', JSON.stringify([products]));
-    // localStorage.setItem('user', JSON.stringify({ email }));
-    // localStorage.setItem('endereço', JSON.stringify({ email }));
-    // history.push('/foods');
+  const setLocalStorageApiData = () => {
+    const url = 'http://localhost:3001/login';
+
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      header: { 'Content-type': 'application/json; charset: utf8' },
+    }).then((response) => response.json())
+      .then((json) => localStorage.setItem('user', JSON.stringify({ json })))
+      .catch((err) => console.log(err));
+  };
+
+  const getLocalStorageData = () => JSON.parse(localStorage.getItem('user'));
+
+  const redirectUser = () => {
+    if (role === 'administrator') {
+      history.push('/admin/manage');
+    } else if (role === 'seller') {
+      history.push('/seller/orders');
+    }
+    history.push('/customers/products');
+  };
+
+  const handleSubmit = () => {
+    setLocalStorageApiData();
+    const response = getLocalStorageData();
+    if (response.includes(err)) {
+      return setErrorMessage('Esse usuário não existe');
+    }
+    redirectUser();
   };
 
   return (
@@ -52,18 +81,24 @@ function Login() {
       <button
         type="submit"
         data-testid="common_login__button-login"
-        onClick={ saveStorageLogin }
+        onClick={ handleSubmit() }
         disabled={ setDisabled() }
       >
         Login
       </button>
-      <button
-        type="submit"
+      <Link
         data-testid="common_login__button-register"
-        // onClick={}
+        to="/customers/products"
       >
         Ainda não tenho conta
-      </button>
+      </Link>
+      <span
+        className="login__error"
+        data-testid="common_login__element-invalid-email"
+        hidden={ !errorMessage }
+      >
+        {errorMessage}
+      </span>
     </form>
   );
 }
