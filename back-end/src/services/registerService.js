@@ -6,7 +6,7 @@ const registerUser = async ({ email, password, name }) => {
   if (userByEmail !== null) {
     return false;
   }
-  const createdUser = await user.create({ name, email, password, role: 'user' });
+  const createdUser = await user.create({ name, email, password, role: 'customer' });
   const payload = {
     id: createdUser.dataValues.id,
     name: createdUser.dataValues.name,
