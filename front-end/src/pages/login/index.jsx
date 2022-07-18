@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Login() {
   const history = useHistory();
@@ -20,16 +21,25 @@ function Login() {
     return true;
   };
 
-  const setLocalStorageApiData = () => {
-    const url = 'http://localhost:3001/login';
+  const handleAPI = axios.create({
+    baseURL: 'http://localhost:3001',
+  });
 
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      header: { 'Content-type': 'application/json; charset: utf8' },
-    }).then((response) => response.json())
-      .then((json) => localStorage.setItem('user', JSON.stringify({ json })))
-      .catch((err) => console.log(err));
+  const setLocalStorageApiData = async () => {
+    const result = await handleAPI.post('/login', {
+      email,
+      password,
+    }).then((response) => response.data)
+      .catch((error) => console.log(error));
+    return result;
+  }
+    // fetch(url, {
+    //   method: 'POST',
+    //   body: JSON.stringify({ email, password }),
+    //   header: { 'Content-type': 'application/json; charset: utf8' },
+    // }).then((response) => response.json())
+    //   .then((json) => localStorage.setItem('user', JSON.stringify({ json })))
+    //   .catch((err) => console.log(err));
   };
 
   const getLocalStorageData = () => JSON.parse(localStorage.getItem('user'));
