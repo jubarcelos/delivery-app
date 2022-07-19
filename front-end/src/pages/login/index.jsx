@@ -32,7 +32,7 @@ function Login() {
     }).then((response) => response.data)
       .catch((error) => console.log(error));
     return result;
-  }
+  };
     // fetch(url, {
     //   method: 'POST',
     //   body: JSON.stringify({ email, password }),
@@ -40,7 +40,7 @@ function Login() {
     // }).then((response) => response.json())
     //   .then((json) => localStorage.setItem('user', JSON.stringify({ json })))
     //   .catch((err) => console.log(err));
-  };
+  // };
 
   const getLocalStorageData = () => JSON.parse(localStorage.getItem('user'));
 
