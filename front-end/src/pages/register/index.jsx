@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 function Register() {
   const history = useHistory();
-  const [nome, setNome] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [passaword, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const validateEmailFormat = () => {
@@ -17,31 +18,37 @@ function Register() {
     const minPasswordSize = 6;
     const minNameSize = 12;
     if (validateEmailFormat()
-    && senha.length >= minPasswordSize
-    && nome.length >= minNameSize) {
+    && passaword.length >= minPasswordSize
+    && name.length >= minNameSize) {
       return true;
     }
   };
 
-  const setApiData = () => {
-    const url = 'https://localhost:3001/register';
-    const body = { nome, email, senha };
-    fetch(url, {
-      mothod: 'POST',
-      body: JSON.stringify(body),
-      headers: { 'Content-type': 'application/json; charset: uft8' },
-    }).then((response) => response.json())
-      .then((json) => localStorage.setItem('user', JSON.stringify({ json })))
-      .catch((err) => console.log(err));
+  const handleAPI = axios.create({
+    baseURL: 'http://localhost:3001',
+  });
+
+  const getApiDataAndSetLocalStorage = async () => {
+    const result = await handleAPI.post('/register', {
+      name,
+      email,
+      passaword,
+    }).then((response) => response.data)
+      .then((data) => console.log(data))
+      // .then((data) => localStorage.setItem('user', JSON.stringify(data)))
+      .catch((error) => console.log(error));
+    return result;
   };
 
   const getApiDataFromLocalStorage = () => JSON.parse(localStorage.getItem('user'));
 
-  const handleClick = () => {
-    setApiData();
+  const handleClick = (e) => {
+    e.preventDefault();
+    getApiDataAndSetLocalStorage();
     const response = getApiDataFromLocalStorage();
-    if (response.includes(err)) {
-      return setErrorMessage({ errorMessage: 'este e-mail já foi cadastrado' });
+    console.log(response);
+    if (!response) {
+      return setErrorMessage('este e-mail já foi cadastrado');
     }
     history.push('customers/products');
     // fazer requisição pro backend;
@@ -61,11 +68,11 @@ function Register() {
       <div>
         <input
           type="text"
-          name="nome"
-          value={ nome }
+          name="name"
+          value={ name }
           data-testid="common_register__input-name"
           placeholder="Seu nome"
-          onChange={ ({ target }) => setNome(target.value) }
+          onChange={ ({ target }) => setName(target.value) }
         />
         <input
           type="text"
@@ -77,17 +84,17 @@ function Register() {
         />
         <input
           type="text"
-          name="senha"
-          value={ senha }
+          name="password"
+          value={ passaword }
           data-testid="common_register__input-password"
           placeholder="******"
-          onChange={ ({ target }) => setSenha(target.value) }
+          onChange={ ({ target }) => setPassword(target.value) }
         />
         <button
           type="button"
           disabled={ !validate() }
           data-testid="common_register__button-register"
-          onClick={ () => handleClick }
+          onClick={ handleClick }
         >
           CADASTRAR
         </button>
