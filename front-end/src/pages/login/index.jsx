@@ -6,7 +6,6 @@ function Login() {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // descrever a função que transforma em hash
   const [errorMessage, setErrorMessage] = useState('');
 
   const setDisabled = () => {
@@ -39,23 +38,23 @@ function Login() {
 
   const redirectUser = () => {
     const response = getLocalStorageData();
-    console.log(response.user.role);
-    if (response.user.role === 'administrator') {
-      history.push('/admin/manage');
-    } else if (user.role === 'seller') {
-      history.push('/seller/orders');
+    const { user: { role } } = response;
+    if (role && role === 'administrator') {
+      return history.push('/admin/manage');
     }
-    history.push('/customers/products');
+    if (role && role === 'seller') {
+      return history.push('/seller/orders');
+    }
+    return history.push('/customers/products');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const response = getLocalStorageData();
-    const user2 = response.user;
     setLocalStorageApiData();
-    if (Object.keys(user2).includes('message')) {
-      return setErrorMessage('Esse usuário não existe');
-    }
+    // const response = getLocalStorageData();
+    // if (response === '') {
+    //   setErrorMessage('Esse usuário não existe');
+    // }
     redirectUser();
   };
 
@@ -102,9 +101,9 @@ function Login() {
       <span
         className="login__error"
         data-testid="common_login__element-invalid-email"
-        hidden={ !errorMessage }
+        hidden={ errorMessage === '' }
       >
-        {errorMessage}
+        { errorMessage }
       </span>
     </form>
   );
