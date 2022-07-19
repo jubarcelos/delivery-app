@@ -25,7 +25,7 @@ function Register() {
   };
 
   const handleAPI = axios.create({
-    baseURL: 'http://localhost:3001',
+    baseURL: 'http://localhost:3005',
   });
 
   const getApiDataAndSetLocalStorage = async () => {
@@ -53,7 +53,7 @@ function Register() {
     if (!response) {
       return setErrorMessage('este e-mail já foi cadastrado');
     }
-    history.push('customers/products');
+    history.push('customer/products');
     // fazer requisição pro backend;
     // 1. sucesso: 201
     // pegar token no body e salvar no localStorage
