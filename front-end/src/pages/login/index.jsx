@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
 
 function Login() {
   const history = useHistory();
@@ -30,33 +30,30 @@ function Login() {
       email,
       password,
     }).then((response) => response.data)
+      .then((data) => localStorage.setItem('user', JSON.stringify(data)))
       .catch((error) => console.log(error));
     return result;
   };
-    // fetch(url, {
-    //   method: 'POST',
-    //   body: JSON.stringify({ email, password }),
-    //   header: { 'Content-type': 'application/json; charset: utf8' },
-    // }).then((response) => response.json())
-    //   .then((json) => localStorage.setItem('user', JSON.stringify({ json })))
-    //   .catch((err) => console.log(err));
-  // };
 
   const getLocalStorageData = () => JSON.parse(localStorage.getItem('user'));
 
   const redirectUser = () => {
-    if (role === 'administrator') {
+    const response = getLocalStorageData();
+    console.log(response.user.role);
+    if (response.user.role === 'administrator') {
       history.push('/admin/manage');
-    } else if (role === 'seller') {
+    } else if (user.role === 'seller') {
       history.push('/seller/orders');
     }
     history.push('/customers/products');
   };
 
-  const handleSubmit = () => {
-    setLocalStorageApiData();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const response = getLocalStorageData();
-    if (response.includes(err)) {
+    const user2 = response.user;
+    setLocalStorageApiData();
+    if (Object.keys(user2).includes('message')) {
       return setErrorMessage('Esse usuário não existe');
     }
     redirectUser();
@@ -91,7 +88,7 @@ function Login() {
       <button
         type="submit"
         data-testid="common_login__button-login"
-        onClick={ handleSubmit() }
+        onClick={ handleSubmit }
         disabled={ setDisabled() }
       >
         Login
