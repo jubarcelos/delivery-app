@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function Register() {
   const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [passaword, setPassword] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const validateEmailFormat = () => {
@@ -18,7 +18,7 @@ function Register() {
     const minPasswordSize = 6;
     const minNameSize = 12;
     if (validateEmailFormat()
-    && passaword.length >= minPasswordSize
+    && password.length >= minPasswordSize
     && name.length >= minNameSize) {
       return true;
     }
@@ -29,22 +29,25 @@ function Register() {
   });
 
   const getApiDataAndSetLocalStorage = async () => {
+    console.log('OK =>', name, email, password);
     const result = await handleAPI.post('/register', {
       name,
       email,
-      passaword,
+      password,
     }).then((response) => response.data)
-      .then((data) => console.log(data))
-      // .then((data) => localStorage.setItem('user', JSON.stringify(data)))
+      // .then((data) => console.log('xuxa', data))
+      .then((data) => localStorage.setItem('user', JSON.stringify(data)))
       .catch((error) => console.log(error));
+    console.log(result);
     return result;
   };
 
   const getApiDataFromLocalStorage = () => JSON.parse(localStorage.getItem('user'));
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    getApiDataAndSetLocalStorage();
+    const response2 = await getApiDataAndSetLocalStorage();
+    console.log(response2);
     const response = getApiDataFromLocalStorage();
     console.log(response);
     if (!response) {
@@ -85,7 +88,7 @@ function Register() {
         <input
           type="text"
           name="password"
-          value={ passaword }
+          value={ password }
           data-testid="common_register__input-password"
           placeholder="******"
           onChange={ ({ target }) => setPassword(target.value) }
