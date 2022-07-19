@@ -25,8 +25,8 @@ export default class Routes extends Component {
             <Route exact path="/customers/products" component={ Products } />
             <Route exact path="/customers/orders" component={ CustomerOrders } />
             <Route exact path="/customers/checkout" component={ Checkout } />
-            <Route exact path="/saller" component={ Saller } />
-            <Route exact path="/saller/orders" component={ AllOrders } />
+            <Route exact path="/seller" component={ Saller } />
+            <Route exact path="/seller/orders" component={ AllOrders } />
             <Route exact path="/admin" component={ Admin } />
           </Switch>
         </main>
