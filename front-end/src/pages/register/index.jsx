@@ -29,38 +29,25 @@ function Register() {
   });
 
   const getApiDataAndSetLocalStorage = async () => {
-    console.log('OK =>', name, email, password);
     const result = await handleAPI.post('/register', {
       name,
       email,
       password,
     }).then((response) => response.data)
-      // .then((data) => console.log('xuxa', data))
       .then((data) => localStorage.setItem('user', JSON.stringify(data)))
       .catch((error) => console.log(error));
-    console.log(result);
     return result;
   };
 
   const getApiDataFromLocalStorage = () => JSON.parse(localStorage.getItem('user'));
 
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    const response2 = await getApiDataAndSetLocalStorage();
-    console.log(response2);
+    getApiDataAndSetLocalStorage();
     const response = getApiDataFromLocalStorage();
-    console.log(response);
-    if (!response) {
-      return setErrorMessage('este e-mail já foi cadastrado');
-    }
-    history.push('customer/products');
-    // fazer requisição pro backend;
-    // 1. sucesso: 201
-    // pegar token no body e salvar no localStorage
-    // redirecionar para costumer/products
-    // 2. erro: 409
-    // setar a mensagem de erro no erro mensage state.
-    //
+    if (response) {
+      setErrorMessage('este e-mail já foi cadastrado');
+    } else { history.push('customer/products'); }
   };
 
   return (
