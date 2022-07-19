@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Header from '../../components/header';
 
 function Products() {
   const [products, setProducts] = useState();
@@ -17,6 +18,7 @@ function Products() {
 
   return (
     <div>
+      <Header />
       <h1> Products</h1>
       {
         products.length !== 0

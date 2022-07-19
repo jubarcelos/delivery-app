@@ -13,7 +13,7 @@ function Login() {
     if (
       email.includes('@')
       && email.includes('.com')
-      && password.length > SIX
+      && password.length >= SIX
     ) {
       return false;
     }
@@ -46,7 +46,7 @@ function Login() {
       history.push('/seller/orders');
     } else
     if (role && role === 'customer') {
-      history.push('/customers/products');
+      history.push('/customer/products');
     } else {
       setErrorMessage('Esse usuário não existe');
     }
@@ -97,12 +97,17 @@ function Login() {
       >
         Login
       </button>
-      <Link
+      <button
+        type="button"
         data-testid="common_login__button-register"
-        to="/register"
       >
-        Ainda não tenho conta
-      </Link>
+        <Link
+          to="/register"
+        >
+          Ainda não tenho conta
+        </Link>
+      </button>
+
       <span
         className="login__error"
         data-testid="common_login__element-invalid-email"
