@@ -40,22 +40,27 @@ function Login() {
     const response = getLocalStorageData();
     const { user: { role } } = response;
     if (role && role === 'administrator') {
-      return history.push('/admin/manage');
-    }
+      history.push('/admin/manage');
+    } else
     if (role && role === 'seller') {
-      return history.push('/seller/orders');
+      history.push('/seller/orders');
+    } else
+    if (role && role === 'customer') {
+      history.push('/customers/products');
+    } else {
+      setErrorMessage('Esse usuário não existe');
     }
-    return history.push('/customers/products');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setLocalStorageApiData();
-    // const response = getLocalStorageData();
-    // if (response === '') {
-    //   setErrorMessage('Esse usuário não existe');
-    // }
-    redirectUser();
+    await setLocalStorageApiData();
+    const response = getLocalStorageData();
+    if (!response) {
+      setErrorMessage('Esse usuário não existe');
+    } else {
+      redirectUser();
+    }
   };
 
   return (
@@ -101,7 +106,7 @@ function Login() {
       <span
         className="login__error"
         data-testid="common_login__element-invalid-email"
-        hidden={ errorMessage === '' }
+        hidden={ !errorMessage }
       >
         { errorMessage }
       </span>
