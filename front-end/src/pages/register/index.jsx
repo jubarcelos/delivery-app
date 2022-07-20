@@ -25,27 +25,33 @@ function Register() {
   };
 
   const handleAPI = axios.create({
-    baseURL: 'http://localhost:3005',
+    baseURL: 'http://localhost:3001',
   });
 
   const getApiDataAndSetLocalStorage = async () => {
-    const result = await handleAPI.post('/register', {
+    let statusCode = 0;
+    await handleAPI.post('/register', {
       name,
       email,
       password,
-    }).then((response) => response.data)
+    }).then((response) => {
+      statusCode = response.status;
+      return response.data;
+    })
       .then((data) => localStorage.setItem('user', JSON.stringify(data)))
-      .catch((error) => console.log(error));
-    return result;
+      .catch((error) => {
+        console.log(error);
+        statusCode = error.response.status;
+      });
+
+    return statusCode;
   };
 
-  const getApiDataFromLocalStorage = () => JSON.parse(localStorage.getItem('user'));
-
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
+    const erro409 = 409;
     e.preventDefault();
-    getApiDataAndSetLocalStorage();
-    const response = getApiDataFromLocalStorage();
-    if (response) {
+    const status = await getApiDataAndSetLocalStorage();
+    if (status === erro409) {
       setErrorMessage('este e-mail já foi cadastrado');
     } else { history.push('customer/products'); }
   };
@@ -89,7 +95,7 @@ function Register() {
           CADASTRAR
         </button>
         <span
-          name="common_register__element-invalid_register"
+          data-testid="common_register__element-invalid_register"
           hidden={ !errorMessage }
         >
           { errorMessage }
