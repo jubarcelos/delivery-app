@@ -34,5 +34,5 @@ const postOrder = async (req, res) => {
 module.exports = {
   getAll,
   getById,
-  postOrder,
+  postOrder,  
 };
