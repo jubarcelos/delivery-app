@@ -9,6 +9,17 @@ const getAll = async (req, res) => {
   }
 };
 
+const postOrder = async (req, res) => {
+  try {
+    const bodyObj = req.body;
+    await customerService.postOrder(bodyObj);
+    return res.status(201).json();
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
+  }
+};
+
 module.exports = {
     getAll,
+    postOrder,
 };
