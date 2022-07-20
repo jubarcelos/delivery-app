@@ -5,6 +5,12 @@ const getAll = async () => {
  return allProducts;
 };
 
+const getById = async (id) => {
+  const productById =  await product.getById(id);
+  if (!productById) return null;
+  return productById;
+}
+
 module.exports = {
   getAll,
 };
