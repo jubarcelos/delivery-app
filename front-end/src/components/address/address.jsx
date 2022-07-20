@@ -1,41 +1,64 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { setLocalStorageApiData, clearLocalStorage } from '../../utils/postAPI';
+import { useHistory } from 'react-router-dom';
+import { getApiData } from '../../utils/getAPI';
+import { setLocalStorageApiData } from '../../utils/postAPI';
 
-const [userId, setUserId ] = useState('');
+const [allSellers, setAllSellers] = useState([]);
+const [userId, setUserId] = useState('');
 const [sellerName, setSellerName] = useState('');
 const [sellerId, setSellerId] = useState('');
 const [deliveryAddress, setDeliveryAddress] = useState('');
 const [deliveryNumber, setDeliveryNumber] = useState('');
 const [address, setAddress] = useState({});
+const rote = 'customer/orders';
+const history = useHistory();
 
 function Address() {
-  setAddress({
-    userId,
-    sellerId,
-    deliveryAddress,
-    deliveryNumber,
-  });
+  const defineUserId = () => {
+    const { id } = getLocalStorage().user;
+    setUserId(id);
+  };
+  defineUserId();
 
-  const sellers = [
-    {
-      sellerName,
-      sellerId: 123,
-    },
-    {
-      sellerName: 'Ela',
-      sellerId: 13,
-    },
-  ];
+  // const sellers = [
+  //   {
+  //     sellerName,
+  //     sellerId: 123,
+  //   },
+  //   {
+  //     sellerName: 'Ela',
+  //     sellerId: 13,
+  //   },
+  // ];
 
-  const selectSeller = document.querySelector('#seller-name');
-  function addOptionsToSelectSeller(options) {
-    return options.forEach((seller, key) => {
-      selectSeller[key + 1] = new Option(seller, key + 1);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSellerId();
+    setAddress({
+      userId,
+      sellerId,
+      deliveryAddress,
+      deliveryNumber,
     });
-  }
+    await setLocalStorageApiData(rote, address, 'order');
+    const { id } = getLocalStorage().order;
 
-  selectSeller.addEventListener('click', addOptionsToSelectSeller(sellers));
+    history.push(`${rote}/${id}`);
+  };
+
+  const getApi = async () => {
+    setAllSellers(await getApiData(rote, address));
+  };
+
+  // const selectSeller = document.querySelector('#seller-name');
+  // const addOptionsToSelectSeller = async (options) => {
+  //   await getApi();
+  //   return options.forEach((seller, key) => {
+  //     selectSeller[key + 1] = new Option(seller, key + 1);
+  //   });
+  // };
+
+  // selectSeller.addEventListener('click', addOptionsToSelectSeller(allSellers));
 
   return (
     <form>
@@ -50,9 +73,12 @@ function Address() {
           onChange={ ({ target }) => setSellerName(target.value) }
           required
         >
-          <option className="seller__option" disabled selected value>
-            Selecione a pessoa vendedora responsável
-          </option>
+          { getApi() }
+          { allSellers.map((seller, key) => (
+            <option key={ key + 1 } className="seller__option" disabled value>
+              { seller }
+            </option>
+          ))}
         </select>
       </label>
       <label htmlFor="input-address">
@@ -84,7 +110,7 @@ function Address() {
         onClick={ handleSubmit }
         disabled={ setDisabled() }
       >
-        <Link to="/">Finalizar pedido</Link>
+        Finalizar pedido
       </button>
     </form>
   );
