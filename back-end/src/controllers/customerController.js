@@ -9,6 +9,18 @@ const getAll = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await customerService.getById(id);
+
+    if (!product) return res.status(404).json({ message: 'Page not Found' });
+    return res.status(200).json(product);
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
 const postOrder = async (req, res) => {
   try {
     const bodyObj = req.body;
@@ -20,6 +32,7 @@ const postOrder = async (req, res) => {
 };
 
 module.exports = {
-    getAll,
-    postOrder,
+  getAll,
+  getById,
+  postOrder,
 };
