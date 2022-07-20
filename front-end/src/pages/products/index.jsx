@@ -21,16 +21,21 @@ function Products() {
       <Header />
       <h1> Products</h1>
       {
-        products.length !== 0
+        products !== undefined
         && products.map((prod) => (
           <div key={ prod.name }>
             <p>
               { prod.name }
             </p>
             <p>
+              R$
               { prod.price }
             </p>
-            <img src={ prod.url_image } alt={ `imagem do produto ${prod.name}` } />
+            <img
+              src={ prod.url_image }
+              alt={ `imagem do produto ${prod.name}` }
+              width="150px"
+            />
           </div>
         ))
       }
