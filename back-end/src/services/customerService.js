@@ -6,9 +6,19 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const productById = await product.getById(id);
+  const productById = await product.findByPk(id);
   if (!productById) return null;
   return productById;
+};
+
+const getAllOrders = async () => {
+  const allOrders = await sale.findAll();
+  return allOrders;
+};
+
+const getByIdOrders = async (id) => {
+  const allOrders = await sale.findByPk(id);
+  return allOrders;
 };
 
 const postOrder = async (payload) => {
@@ -34,4 +44,6 @@ module.exports = {
   getAll,
   postOrder,
   getById,
+  getAllOrders,
+  getByIdOrders,
 };
