@@ -1,39 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getApiData } from '../../utils/getAPI';
+import { getLocalStorage } from '../../utils/localStorage';
+// import { getApiData } from '../../utils/getAPI';
 import { setLocalStorageApiData } from '../../utils/postAPI';
 
-const [allSellers, setAllSellers] = useState([]);
-const [userId, setUserId] = useState('');
-const [sellerName, setSellerName] = useState('');
-const [sellerId, setSellerId] = useState('');
-const [deliveryAddress, setDeliveryAddress] = useState('');
-const [deliveryNumber, setDeliveryNumber] = useState('');
-const [address, setAddress] = useState({});
-const rote = 'customer/orders';
-const history = useHistory();
-
 function Address() {
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [allSellers, setAllSellers] = useState([]);
+  const [sellerPerson, setSellerPerson] = useState(0);
+  const [userId, setUserId] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [address, setAddress] = useState({});
+  const rote = 'customer/orders';
+  // const sellerRote = 'seller';
+  const history = useHistory();
+
   const defineUserId = () => {
-    const { id } = getLocalStorage().user;
+    const { id } = getLocalStorage();
     setUserId(id);
   };
-  defineUserId();
 
-  // const sellers = [
-  //   {
-  //     sellerName,
-  //     sellerId: 123,
-  //   },
-  //   {
-  //     sellerName: 'Ela',
-  //     sellerId: 13,
-  //   },
-  // ];
+  useEffect(() => {
+    const sellers = [
+      {
+        sellerName: 'joão',
+        sellerId: 123,
+      },
+      {
+        sellerName: 'Ela',
+        sellerId: 13,
+      },
+    ];
+    // const sellers = getApiData(sellerRote);
+    setAllSellers(sellers);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSellerId();
+    defineUserId();
     setAddress({
       userId,
       sellerId,
@@ -42,23 +46,8 @@ function Address() {
     });
     await setLocalStorageApiData(rote, address, 'order');
     const { id } = getLocalStorage().order;
-
     history.push(`${rote}/${id}`);
   };
-
-  const getApi = async () => {
-    setAllSellers(await getApiData(rote, address));
-  };
-
-  // const selectSeller = document.querySelector('#seller-name');
-  // const addOptionsToSelectSeller = async (options) => {
-  //   await getApi();
-  //   return options.forEach((seller, key) => {
-  //     selectSeller[key + 1] = new Option(seller, key + 1);
-  //   });
-  // };
-
-  // selectSeller.addEventListener('click', addOptionsToSelectSeller(allSellers));
 
   return (
     <form>
@@ -69,19 +58,25 @@ function Address() {
           id="seller-name"
           placeholder="Fulana Pereira"
           data-testid="customer_checkout__select-seller"
-          value={ sellerName }
-          onChange={ ({ target }) => setSellerName(target.value) }
+          value={ sellerPerson }
+          onChange={ ({ target }) => setSellerPerson(target.value) }
           required
         >
-          { getApi() }
-          { allSellers.map((seller, key) => (
-            <option key={ key + 1 } className="seller__option" disabled value>
-              { seller }
-            </option>
-          ))}
+          <option value="" disabled> Vendedor</option>
+          { allSellers.length !== 0
+            && allSellers.map((seller, key) => (
+              <option
+                key={ key + 1 }
+                className="seller__option"
+                value={ seller.sellerId }
+              >
+                { seller.sellerName }
+              </option>
+            ))}
         </select>
       </label>
       <label htmlFor="input-address">
+        Endereço:
         <input
           type="text"
           data-testid="customer_checkout__input-address"
@@ -93,7 +88,7 @@ function Address() {
         />
       </label>
       <label htmlFor="input-addressNumber">
-        Senha
+        Numero:
         <input
           data-testid="customer_checkout__input-addressNumber"
           id="input-addressNumber"
@@ -108,7 +103,11 @@ function Address() {
         type="submit"
         data-testid="customer_checkout__button-submit-order"
         onClick={ handleSubmit }
-        disabled={ setDisabled() }
+        disabled={
+          sellerPerson === ''
+          || deliveryAddress === ''
+          || deliveryNumber === ''
+        }
       >
         Finalizar pedido
       </button>
