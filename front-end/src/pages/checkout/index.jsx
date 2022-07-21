@@ -1,7 +1,12 @@
 import React from 'react';
+import Table from '../../components/table/index';
 
 function checkout() {
-  return (<h1> checkout</h1>);
+  return (
+    <div>
+      <Table activeRemoveButton="true" />
+    </div>
+  );
 }
 
 export default checkout;
