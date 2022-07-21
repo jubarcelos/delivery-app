@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/header';
-import { GridProducts } from './style';
+import GridProducts from './style';
 import Card from '../../components/cardProduct/Card';
 
 function Products() {
   const [products, setProducts] = useState();
-  const [allProducts, setAll] = useState([]);
+  // const [allProducts, setAll] = useState([]);
   // const [clickItem, setClick] = useState();
 
   const fetchProducts = async () => {
