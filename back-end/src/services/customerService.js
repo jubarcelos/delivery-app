@@ -38,7 +38,7 @@ const postOrder = async (payload) => {
     await salesProduct
       .create({ saleId, productId: carProduct.id, quantity: carProduct.quantity });
   }));
-  return { orderId: saleId }
+  return { orderId: saleId };
 };
 
 module.exports = {
