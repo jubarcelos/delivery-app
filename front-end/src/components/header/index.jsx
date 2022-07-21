@@ -4,11 +4,11 @@ import HeaderStyled from './style';
 
 function Header() {
   const getLocalStorage = () => JSON.parse(localStorage.getItem('user'));
-  const { role } = getLocalStorage().user;
-  const { name } = getLocalStorage().user;
+  const { role } = getLocalStorage();
+  const { name } = getLocalStorage();
 
   const clearUser = () => {
-    localStorage.setItem('user', JSON.stringify({}));
+    localStorage.removeItem('user');
   };
 
   return (
