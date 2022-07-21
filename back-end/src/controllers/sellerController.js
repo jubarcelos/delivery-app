@@ -9,6 +9,18 @@ const getAll = async (req, res) => {
   }
 };
 
+const changeOrderStatus = async (req, res) => {
+  try {
+    const bodyObj = req.body;
+    const paramsObj = req.params;
+    const status = await sellerService.changeOrderStatus(bodyObj, paramsObj);
+    return res.status(200).json(status);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getAll,
+  changeOrderStatus
 };
