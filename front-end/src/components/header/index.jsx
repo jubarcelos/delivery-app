@@ -4,11 +4,11 @@ import HeaderStyled from './style';
 
 function Header() {
   const getLocalStorage = () => JSON.parse(localStorage.getItem('user'));
-  const { role } = getLocalStorage().user;
-  const { name } = getLocalStorage().user;
+  const { role } = getLocalStorage();
+  const { name } = getLocalStorage();
 
   const clearUser = () => {
-    localStorage.setItem('user', JSON.stringify({}));
+    localStorage.removeItem('user');
   };
 
   return (
@@ -18,12 +18,18 @@ function Header() {
           role === 'customer'
             && (
               <div>
-                <h1>
-                  <Link to="/customers/products">Produtos</Link>
-                </h1>
-                <h1>
-                  <Link to="/customers/orders">Meus Pedidos</Link>
-                </h1>
+                <Link
+                  data-testid="customer_products__element-navbar-link-products"
+                  to="/customer/products"
+                >
+                  Produtos
+                </Link>
+                <Link
+                  data-testid="customer_products__element-navbar-link-orders"
+                  to="/customer/orders"
+                >
+                  Meus Pedidos
+                </Link>
               </div>
             )
         }
@@ -38,10 +44,14 @@ function Header() {
         }
       </div>
       <div>
-        <h1>{ name }</h1>
-        <h1>
-          <Link onClick={ clearUser } to="/login">Sair</Link>
-        </h1>
+        <h1 data-testid="customer_products__element-navbar-user-full-name">{ name }</h1>
+        <Link
+          data-testid="customer_products__element-navbar-link-logout"
+          onClick={ clearUser }
+          to="/login"
+        >
+          Sair
+        </Link>
       </div>
     </HeaderStyled>
   );

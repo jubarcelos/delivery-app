@@ -8,6 +8,8 @@ const sellerRoute = require('../routes/sellerRoute');
 
 const app = express();
 
+app.use('/images', express.static('images'));
+
 app.use(express.json());
 app.use(cors());
 
