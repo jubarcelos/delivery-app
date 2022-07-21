@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const cartMock = [{
@@ -27,12 +27,15 @@ const cartMock = [{
   id: 4,
 }];
 
-// const removeProduct = (id) => {
-//   cartMock.filter((product) => product.id !== id);
-// };
-
 function Table({ activeRemoveButton, dataTestidPrefix }) {
   // const getLocalStorage = () => JSON.parse(localStorage.getItem('cart'));
+
+  const [cart, setCart] = useState(cartMock);
+
+  const removeProduct = (productId) => {
+    const filteredProducts = cart.filter((product) => productId !== product.id);
+    setCart(filteredProducts);
+  };
 
   const renderProduct = (Product, index) => (
     <tr key={ Product.id }>
@@ -69,7 +72,7 @@ function Table({ activeRemoveButton, dataTestidPrefix }) {
         <button
           type="button"
           data-testid="delete-btn"
-          onClick={ () => removeProduct(product.id) }
+          onClick={ () => removeProduct(Product.id) }
         >
           Excluir
         </button>
@@ -79,7 +82,7 @@ function Table({ activeRemoveButton, dataTestidPrefix }) {
 
   const totalValue = () => {
     const value = 0;
-    const soma = cartMock.reduce(
+    const soma = cart.reduce(
       (acumulador, valorAtual) => acumulador + valorAtual.subTotal, value,
     );
     return soma.toFixed(2);
@@ -99,7 +102,7 @@ function Table({ activeRemoveButton, dataTestidPrefix }) {
           </tr>
         </thead>
         <tbody>
-          { cartMock.map((product, index) => renderProduct(product, index)) }
+          { cart.map((product, index) => renderProduct(product, index)) }
         </tbody>
       </table>
       <div
