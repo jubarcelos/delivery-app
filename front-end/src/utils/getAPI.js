@@ -1,3 +1,5 @@
+import { handleAPI } from './postAPI';
+
 const getApiData = async (rote, send) => {
   const result = await handleAPI.post('/rote', send)
     .then((response) => response.data)

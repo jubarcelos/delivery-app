@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const handleAPI = axios.create({
   baseURL: 'http://localhost:3001',
 });
