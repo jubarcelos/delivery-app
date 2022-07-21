@@ -4,7 +4,7 @@ import Table from '../../components/table/index';
 function checkout() {
   return (
     <div>
-      <Table activeRemoveButton="true" />
+      <Table activeRemoveButton="true" dataTestidPrefix="customer_checkout" />
     </div>
   );
 }

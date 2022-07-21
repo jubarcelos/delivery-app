@@ -31,39 +31,39 @@ const cartMock = [{
 //   cartMock.filter((product) => product.id !== id);
 // };
 
-function Table({ activeRemoveButton }) {
+function Table({ activeRemoveButton, dataTestidPrefix }) {
   // const getLocalStorage = () => JSON.parse(localStorage.getItem('cart'));
 
   const renderProduct = (Product, index) => (
     <tr key={ Product.id }>
       <td
-        data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
+        data-testid={ `${dataTestidPrefix}__element-order-table-item-number-${index}` }
       >
         { index + 1 }
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-name-${index}` }
+        data-testid={ `${dataTestidPrefix}__element-order-table-name-${index}` }
       >
         { Product.name }
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
+        data-testid={ `${dataTestidPrefix}__element-order-table-quantity-${index}` }
       >
         { Product.qty }
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
+        data-testid={ `${dataTestidPrefix}__element-order-table-unit-price-${index}` }
       >
         { Product.price }
       </td
       >
       <td
-        data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
+        data-testid={ `${dataTestidPrefix}__element-order-table-sub-total-${index}` }
       >
         { Product.subTotal }
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+        data-testid={ `${dataTestidPrefix}__element-order-table-remove-${index}` }
         hidden={ !activeRemoveButton }
       >
         <button
@@ -102,7 +102,9 @@ function Table({ activeRemoveButton }) {
           { cartMock.map((product, index) => renderProduct(product, index)) }
         </tbody>
       </table>
-      <div>
+      <div
+        data-testid={ `${dataTestidPrefix}__element-order-total-price` }
+      >
         Total:
         { totalValue() }
       </div>
@@ -114,4 +116,5 @@ export default Table;
 
 Table.propTypes = {
   activeRemoveButton: PropTypes.bool.isRequired,
+  dataTestidPrefix: PropTypes.string.isRequired,
 };
