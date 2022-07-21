@@ -10,6 +10,14 @@ function Card({ produto }) {
     setCountClick(countClick + 1);
   };
 
+  const decTotal = () => {
+    setCountClick(countClick - 1);
+  };
+
+  useEffect(() => {
+    setPrice((countClick * produto.price).toFixed(2));
+  }, [countClick]);
+
   useEffect(() => {
     const infos = {
       name: produto.name,
@@ -19,16 +27,22 @@ function Card({ produto }) {
       totalPrice,
     };
 
-    setPrice(countClick * produto.price);
-
     const local = JSON.parse(localStorage.getItem('cart'));
-    if (local === null) {
+
+    if (local === null && countClick > 0) {
       localStorage.setItem('cart', JSON.stringify([infos]));
-    } else {
-      local.push(infos);
-      localStorage.setItem('cart', JSON.stringify(local));
     }
-  }, [countClick]);
+
+    if (local !== null && countClick > 0) {
+      const filterItem = local.filter((prod) => prod.id !== produto.id);
+      localStorage.setItem('cart', JSON.stringify([...filterItem, { ...infos }]));
+    }
+
+    if (local !== null && countClick < 1) {
+      const removeItem = local.filter((prod) => prod.id !== produto.id);
+      localStorage.setItem('cart', JSON.stringify(removeItem));
+    }
+  }, [totalPrice]);
 
   return (
     <CardStyle key={ produto.name }>
@@ -49,6 +63,7 @@ function Card({ produto }) {
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${produto.id}` }
+          onClick={ decTotal }
           id={ produto.id }
         >
           -
