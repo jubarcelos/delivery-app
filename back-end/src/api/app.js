@@ -6,7 +6,7 @@ const customerRoute = require('../routes/customerRoute');
 
 const app = express();
 
-app.use(express.static('public'));
+app.use('/images', express.static('images'));
 
 app.use(express.json());
 app.use(cors());
