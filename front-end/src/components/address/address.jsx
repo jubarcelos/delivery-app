@@ -9,15 +9,19 @@ function Address() {
   const [allSellers, setAllSellers] = useState([]);
   const [sellerPerson, setSellerPerson] = useState(0);
   const [userId, setUserId] = useState('');
+  const [orderProducts, setOrderProducts] = useState([]);
+  const [totalOrder, setTotalOrder] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
-  const [address, setAddress] = useState({});
+  const [order, setOrder] = useState({});
   const rote = 'customer/orders';
   // const sellerRote = 'seller';
   const history = useHistory();
 
   const defineUserId = () => {
-    const { id } = getLocalStorage();
+    const { id, products, totalPrice } = getLocalStorage();
     setUserId(id);
+    setOrderProducts(products);
+    setTotalOrder(totalPrice);
   };
 
   useEffect(() => {
@@ -38,15 +42,17 @@ function Address() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     defineUserId();
-    setAddress({
+    setOrder({
       userId,
       sellerId,
+      totalPrice: totalOrder,
       deliveryAddress,
       deliveryNumber,
+      products: orderProducts,
     });
-    await setLocalStorageApiData(rote, address, 'order');
-    const { id } = getLocalStorage().order;
-    history.push(`${rote}/${id}`);
+    await setLocalStorageApiData(rote, order, 'orderId');
+    const { orderId } = getLocalStorage();
+    history.push(`${rote}/${orderId}`);
   };
 
   return (
