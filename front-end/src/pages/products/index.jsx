@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/header';
+import GridProducts from './style';
+import Card from '../../components/cardProduct/Card';
+import Context from '../../context';
 
 function Products() {
-  const [products, setProducts] = useState();
+  const { itemsCart, products, setProducts, total, setTotal } = useContext(Context);
+
+  const history = useHistory();
 
   const fetchProducts = async () => {
     axios.get('http://localhost:3001/customer/products')
@@ -16,24 +22,40 @@ function Products() {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    if (itemsCart.length !== null) {
+      const value = 0;
+      const soma = itemsCart.reduce(
+        (acumulador, valorAtual) => acumulador + +(valorAtual.sumItem), +(value),
+      );
+      setTotal(soma);
+    }
+
+    if (total === []) setTotal(0);
+  }, [itemsCart]);
+
   return (
     <div>
       <Header />
-      <h1> Products</h1>
-      {
-        products.length !== 0
-        && products.map((prod) => (
-          <div key={ prod.name }>
-            <p>
-              { prod.name }
-            </p>
-            <p>
-              { prod.price }
-            </p>
-            <img src={ prod.url_image } alt={ `imagem do produto ${prod.name}` } />
-          </div>
-        ))
-      }
+      <GridProducts>
+        {
+          products !== undefined
+          && products.map((prod, index) => (
+            <Card key={ index } produto={ prod } />
+          ))
+        }
+      </GridProducts>
+      <button
+        type="button"
+        data-testid="customer_products__button-cart"
+        onClick={ () => history.push('/customer/checkout') }
+        disabled={ itemsCart.length === 0 }
+      >
+        Ver Carrinho: R$
+        <span data-testid="customer_products__checkout-bottom-value">
+          { total.toFixed(2).toString().replace('.', ',') }
+        </span>
+      </button>
     </div>
   );
 }
