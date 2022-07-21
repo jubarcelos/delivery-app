@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HeaderStyled from './style';
+import { getLocalStorage } from '../../utils/localStorage';
 
 function Header() {
-  const getLocalStorage = () => JSON.parse(localStorage.getItem('user'));
-  const { role } = getLocalStorage().user;
-  const { name } = getLocalStorage().user;
+  const { role } = getLocalStorage();
+  const { name } = getLocalStorage();
 
   const clearUser = () => {
     localStorage.setItem('user', JSON.stringify({}));
