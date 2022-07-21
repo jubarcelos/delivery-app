@@ -22,5 +22,5 @@ const changeOrderStatus = async (req, res) => {
 
 module.exports = {
   getAll,
-  changeOrderStatus
+  changeOrderStatus,
 };

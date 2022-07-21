@@ -16,5 +16,5 @@ const changeOrderStatus = async ({ saleStatus }, { id }) => {
 
 module.exports = {
   getAll,
-  changeOrderStatus
+  changeOrderStatus,
 };
