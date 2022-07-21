@@ -38,7 +38,7 @@ function Login() {
 
   const redirectUser = () => {
     const response = getLocalStorageData();
-    const { user: { role } } = response;
+    const { role } = response;
     if (role && role === 'administrator') {
       history.push('/admin/manage');
     } else
