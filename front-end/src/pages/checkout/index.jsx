@@ -1,5 +1,5 @@
 import React from 'react';
-import Address from '../../components/address/address';
+import Address from '../../components/address';
 
 function checkout() {
   return (

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getLocalStorage } from '../../utils/localStorage';
 // import { getApiData } from '../../utils/getAPI';
 import { setLocalStorageApiData } from '../../utils/postAPI';
+import Context from '../../context';
 
 function Address() {
+  const { itemsCart, total } = useContext(Context);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [allSellers, setAllSellers] = useState([]);
   const [sellerPerson, setSellerPerson] = useState(0);
@@ -18,10 +20,10 @@ function Address() {
   const history = useHistory();
 
   const defineUserId = () => {
-    const { id, products, totalPrice } = getLocalStorage();
+    const { id } = getLocalStorage();
     setUserId(id);
-    setOrderProducts(products);
-    setTotalOrder(totalPrice);
+    setOrderProducts(itemsCart);
+    setTotalOrder(total);
   };
 
   useEffect(() => {
