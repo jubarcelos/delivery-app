@@ -6,35 +6,15 @@ import { setLocalStorageApiData } from '../../utils/postAPI';
 import Context from '../../context';
 
 function Address() {
-  const { itemsCart, total } = useContext(Context);
+  const { itemsCart, total, userId } = useContext(Context);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [allSellers, setAllSellers] = useState([]);
   const [sellerPerson, setSellerPerson] = useState(0);
-  const [userId, setUserId] = useState('');
-  const [orderProducts, setOrderProducts] = useState([]);
-  const [totalOrder, setTotalOrder] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [order, setOrder] = useState({});
   const rote = 'customer/orders';
   const sellerRote = 'seller';
   const history = useHistory();
-
-  const defineUserId = () => {
-    const { id } = getLocalStorage();
-    setUserId(id);
-    setOrderProducts(itemsCart);
-    setTotalOrder(total);
-  };
-  // const sellers = [
-  //   {
-  //     sellerName: 'joão',
-  //     sellerId: 123,
-  //   },
-  //   {
-  //     sellerName: 'Ela',
-  //     sellerId: 13,
-  //   },
-  // ];
 
   const setSellers = async () => {
     const sellers = await getApiData(sellerRote);
@@ -45,21 +25,25 @@ function Address() {
     setSellers();
   }, []);
 
+  useEffect(() => {
+    console.log(order);
+    if (order.userId) {
+      setLocalStorageApiData(rote, order, 'orderId');
+      const { orderId } = getLocalStorage();
+      history.push(`customer/orders/${orderId}`);
+    }
+  }, [order, history]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    defineUserId();
     setOrder({
       userId,
       sellerId: sellerPerson,
-      totalPrice: totalOrder,
+      totalPrice: total,
       deliveryAddress,
       deliveryNumber,
-      products: orderProducts,
+      products: itemsCart,
     });
-    await setLocalStorageApiData(rote, order, 'orderId');
-    const result = await getLocalStorage();
-    const { orderId } = result;
-    history.push(`${rote}/${orderId}`);
   };
 
   return (
