@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '.';
 
 function Provider({ children }) {
-  const context = {};
+  const [itemsCart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [products, setProducts] = useState();
+
+  const states = {
+    itemsCart,
+    setCart,
+    total,
+    setTotal,
+    products,
+    setProducts,
+  };
   return (
     <Context.Provider
-      value={ context }
+      value={ states }
     >
       { children }
     </Context.Provider>

@@ -45,8 +45,8 @@ const getByIdOrders = async (req, res) => {
 const postOrder = async (req, res) => {
   try {
     const bodyObj = req.body;
-    await customerService.postOrder(bodyObj);
-    return res.status(201).json();
+    const newOrder = await customerService.postOrder(bodyObj);
+    return res.status(201).json(newOrder);
   } catch (err) {
     return res.status(500).send({ message: err.message });
   }
