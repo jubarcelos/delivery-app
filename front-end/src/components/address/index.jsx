@@ -12,24 +12,21 @@ function Address() {
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [order, setOrder] = useState({});
   const route = 'customer/orders';
-  const sellerRote = 'seller';
+  const sellerRoute = 'seller';
   const history = useHistory();
 
   const setSellers = async () => {
-    const sellers = await getApiData(sellerRote);
+    const sellers = await getApiData(sellerRoute);
     setAllSellers(sellers);
+  };
+
+  const handlePage = async () => {
+    const result = await getOrderId(route, order);
+    history.push(`/customer/orders/${result.orderId}`);
   };
 
   useEffect(() => {
     setSellers();
-  }, []);
-
-  const handlePage = async () => {
-    const result = await getOrderId(route, order);
-    history.push(`/${route}/${result.orderId}`);
-  };
-
-  useEffect(() => {
     if (order.userId) {
       handlePage();
     }
