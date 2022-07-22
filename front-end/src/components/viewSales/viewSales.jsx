@@ -20,7 +20,7 @@ function ViewSales({ dataTest, isSeller, rote }) {
       {
         orders.length !== 0
         && orders.map((order) => {
-          const { idVenda: id, totalPedido, statusVenda, dataVenda } = order;
+          const { id, totalPrice, status, saleDate } = order;
           return (
             <CardOrder key={ id }>
               <p>
@@ -34,19 +34,19 @@ function ViewSales({ dataTest, isSeller, rote }) {
               <p
                 data-testid={ `${dataTest}__element-order-date-${id}` }
               >
-                { dataVenda }
+                { saleDate }
               </p>
               <p
                 data-testid={ `${dataTest}__element-card-price-${id} ` }
               >
-                { totalPedido }
+                { totalPrice }
               </p>
               <p>
                 Status:
                 <span
                   data-testid={ `${dataTest}__element-delivery-status-${id} ` }
                 >
-                  { ` ${statusVenda}` }
+                  { ` ${status}` }
                 </span>
               </p>
               <p
