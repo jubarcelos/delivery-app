@@ -11,7 +11,7 @@ function Address() {
   const [sellerPerson, setSellerPerson] = useState(2);
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [order, setOrder] = useState({});
-  const rote = 'customer/orders';
+  const route = 'customer/orders';
   const sellerRote = 'seller';
   const history = useHistory();
 
@@ -25,12 +25,11 @@ function Address() {
   }, []);
 
   const handlePage = async () => {
-    const { orderId } = await getOrderId(rote, order);
-    history.push(`${rote}/${orderId}`);
+    const result = await getOrderId(route, order);
+    history.push(`/${route}/${result.orderId}`);
   };
 
   useEffect(() => {
-    console.log(order);
     if (order.userId) {
       handlePage();
     }
