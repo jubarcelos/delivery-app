@@ -1,32 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-// const cartMock = [{
-//   name: 'Cerveja',
-//   qty: 1,
-//   price: 1.56,
-//   subTotal: 1.56,
-//   id: 1,
-// }, {
-//   name: 'Tequila',
-//   qty: 5,
-//   price: 0.98,
-//   subTotal: 4.90,
-//   id: 2,
-// }, {
-//   name: 'Vinho',
-//   qty: 3,
-//   price: 3.89,
-//   subTotal: 11.67,
-//   id: 3,
-// }, {
-//   name: 'Whisky',
-//   qty: 2,
-//   price: 4.80,
-//   subTotal: 9.60,
-//   id: 4,
-// }];
-
 function Table({ activeRemoveButton, dataTestidPrefix }) {
   const getLocalStorage = () => JSON.parse(localStorage.getItem('cart'));
 
@@ -35,6 +9,7 @@ function Table({ activeRemoveButton, dataTestidPrefix }) {
   const removeProduct = (productId) => {
     const filteredProducts = cart.filter((product) => productId !== product.id);
     setCart(filteredProducts);
+    localStorage.setItem('cart', JSON.stringify(filteredProducts));
   };
 
   const renderProduct = (Product, index) => (
@@ -57,13 +32,13 @@ function Table({ activeRemoveButton, dataTestidPrefix }) {
       <td
         data-testid={ `${dataTestidPrefix}__element-order-table-unit-price-${index}` }
       >
-        { Product.price }
+        { Product.price.replace('.', ',') }
       </td
       >
       <td
         data-testid={ `${dataTestidPrefix}__element-order-table-sub-total-${index}` }
       >
-        { Product.sumItem }
+        { Product.sumItem.replace('.', ',') }
       </td>
       <td
         data-testid={ `${dataTestidPrefix}__element-order-table-remove-${index}` }
@@ -85,7 +60,7 @@ function Table({ activeRemoveButton, dataTestidPrefix }) {
     const soma = cart.reduce(
       (acumulador, valorAtual) => acumulador + Number(valorAtual.sumItem), value,
     );
-    return Number(soma).toFixed(2);
+    return soma.toFixed(2).replace('.', ',');
   };
 
   return (
