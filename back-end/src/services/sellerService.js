@@ -1,7 +1,7 @@
 const { user, sale } = require('../database/models');
 
 const getAll = async () => {
-  const allSeller = await user.findAll({
+  const allSeller = await user.findAll({ 
     where: { role: 'seller' },
     attributes: { exclude: ['password'] },
   });
@@ -14,7 +14,13 @@ const changeOrderStatus = async ({ saleStatus }, { id }) => {
   return { message: 'Sale status updated' };
 };
 
+const getAllSellersOrders = async () => {
+  const allSellersOrders = await sale.findAll();
+  return allSellersOrders;  
+};
+
 module.exports = {
   getAll,
   changeOrderStatus,
+  getAllSellersOrders,
 };

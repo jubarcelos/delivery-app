@@ -20,7 +20,17 @@ const changeOrderStatus = async (req, res) => {
   }
 };
 
+const getAllSellersOrders = async (req, res) => {
+  try {
+    const allSellersOrders = await sellerService.getAllSellersOrders();
+    return res.status(200).json(allSellersOrders);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getAll,
   changeOrderStatus,
+  getAllSellersOrders,
 };
