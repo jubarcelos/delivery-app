@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getLocalStorage } from '../../utils/localStorage';
 import { getApiData } from '../../utils/getAPI';
-import { setLocalStorageApiData } from '../../utils/postAPI';
+import { getOrderId } from '../../utils/postAPI';
 import Context from '../../context';
 
 function Address() {
   const { itemsCart, total, userId } = useContext(Context);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [allSellers, setAllSellers] = useState([]);
-  const [sellerPerson, setSellerPerson] = useState(0);
+  const [sellerPerson, setSellerPerson] = useState(2);
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [order, setOrder] = useState({});
   const rote = 'customer/orders';
@@ -25,14 +24,17 @@ function Address() {
     setSellers();
   }, []);
 
+  const handlePage = async () => {
+    const { orderId } = await getOrderId(rote, order);
+    history.push(`${rote}/${orderId}`);
+  };
+
   useEffect(() => {
     console.log(order);
     if (order.userId) {
-      setLocalStorageApiData(rote, order, 'orderId');
-      const { orderId } = getLocalStorage();
-      history.push(`customer/orders/${orderId}`);
+      handlePage();
     }
-  }, [order, history]);
+  }, [order]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,11 +61,11 @@ function Address() {
           onChange={ ({ target }) => setSellerPerson(target.value) }
           required
         >
-          <option value="" disabled> Vendedor</option>
           { allSellers.length !== 0
             && allSellers.map((seller, key) => (
               <option
                 key={ key + 1 }
+                name="seller-name"
                 className="seller__option"
                 value={ seller.sellerId }
               >
