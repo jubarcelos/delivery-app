@@ -5,6 +5,22 @@ const getAll = async () => {
  return allProducts;
 };
 
+const getById = async (id) => {
+  const productById = await product.findByPk(id);
+  if (!productById) return null;
+  return productById;
+};
+
+const getAllOrders = async () => {
+  const allOrders = await sale.findAll();
+  return allOrders;
+};
+
+const getByIdOrders = async (id) => {
+  const allOrders = await sale.findByPk(id);
+  return allOrders;
+};
+
 const postOrder = async (payload) => {
   const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, products } = payload;
   const createdSale = await sale.create({
@@ -16,14 +32,19 @@ const postOrder = async (payload) => {
     saleDate: Date.now(),
     status: 'Pendente',
   });
+
   const saleId = createdSale.dataValues.id;
   await Promise.all(products.map(async (carProduct) => {
     await salesProduct
       .create({ saleId, productId: carProduct.id, quantity: carProduct.quantity });
   }));
- };
+  return { orderId: saleId };
+};
 
 module.exports = {
   getAll,
   postOrder,
+  getById,
+  getAllOrders,
+  getByIdOrders,
 };

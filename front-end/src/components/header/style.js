@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const HeaderStyled = styled.header`
+const HeaderStyled = styled.nav`
   background-color: grey;
   display: flex;
   justify-content: space-between;
