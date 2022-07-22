@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import HeaderStyled from './style';
 import { getLocalStorage } from '../../utils/localStorage';
+import Context from '../../context';
 
 function Header() {
-  const { role } = getLocalStorage();
-  const { name } = getLocalStorage();
+  const { setUserId } = useContext(Context);
+  const { role, name, id } = getLocalStorage();
+  setUserId(id);
 
   const clearUser = () => {
     localStorage.removeItem('user');

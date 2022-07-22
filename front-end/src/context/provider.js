@@ -6,6 +6,7 @@ function Provider({ children }) {
   const [itemsCart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState();
+  const [userId, setUserId] = useState('');
 
   const states = {
     itemsCart,
@@ -14,6 +15,8 @@ function Provider({ children }) {
     setTotal,
     products,
     setProducts,
+    userId,
+    setUserId,
   };
   return (
     <Context.Provider
