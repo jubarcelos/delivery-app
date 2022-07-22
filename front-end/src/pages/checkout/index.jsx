@@ -1,13 +1,16 @@
 import React from 'react';
 import Address from '../../components/address/address';
+import Table from '../../components/table/index';
+import Header from '../../components/header';
 
-function checkout() {
+function Checkout() {
   return (
-    <>
-      <h1> checkout</h1>
+    <div>
+      <Header />
+      <Table activeRemoveButton dataTestidPrefix="customer_checkout" />
       <Address />
-    </>
+    </div>
   );
 }
 
-export default checkout;
+export default Checkout;
