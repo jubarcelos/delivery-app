@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getLocalStorage } from '../../utils/localStorage';
-// import { getApiData } from '../../utils/getAPI';
+import { getApiData } from '../../utils/getAPI';
 import { setLocalStorageApiData } from '../../utils/postAPI';
 import Context from '../../context';
 
@@ -16,7 +16,7 @@ function Address() {
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [order, setOrder] = useState({});
   const rote = 'customer/orders';
-  // const sellerRote = 'seller';
+  const sellerRote = 'seller';
   const history = useHistory();
 
   const defineUserId = () => {
@@ -25,20 +25,24 @@ function Address() {
     setOrderProducts(itemsCart);
     setTotalOrder(total);
   };
+  // const sellers = [
+  //   {
+  //     sellerName: 'joão',
+  //     sellerId: 123,
+  //   },
+  //   {
+  //     sellerName: 'Ela',
+  //     sellerId: 13,
+  //   },
+  // ];
+
+  const setSellers = async () => {
+    const sellers = await getApiData(sellerRote);
+    setAllSellers(sellers);
+  };
 
   useEffect(() => {
-    const sellers = [
-      {
-        sellerName: 'joão',
-        sellerId: 123,
-      },
-      {
-        sellerName: 'Ela',
-        sellerId: 13,
-      },
-    ];
-    // const sellers = getApiData(sellerRote);
-    setAllSellers(sellers);
+    setSellers();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -46,14 +50,15 @@ function Address() {
     defineUserId();
     setOrder({
       userId,
-      sellerId,
+      sellerId: sellerPerson,
       totalPrice: totalOrder,
       deliveryAddress,
       deliveryNumber,
       products: orderProducts,
     });
     await setLocalStorageApiData(rote, order, 'orderId');
-    const { orderId } = getLocalStorage();
+    const result = await getLocalStorage();
+    const { orderId } = result;
     history.push(`${rote}/${orderId}`);
   };
 
