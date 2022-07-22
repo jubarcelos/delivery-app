@@ -15,11 +15,7 @@ const changeOrderStatus = async ({ saleStatus }, { id }) => {
 };
 
 const getAllSellersOrders = async () => {
-  const allSellersOrders = await sale.findAll({
-    attributes: [['id', 'idVenda'],
-    ['total_price', 'totalPedido'], ['delivery_address', 'endereço'],
-    ['delivery_number', 'numero'], ['sale_date', 'dataVenda'], ['status', 'statusVenda']],
-  });
+  const allSellersOrders = await sale.findAll();
   return allSellersOrders;  
 };
 
