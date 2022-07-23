@@ -6,7 +6,8 @@ const handleAPI = axios.create({
 
 // send = {};
 // tag e rote = string;
-const getOrderId = (rote, send) => {
+const getOrderId = (rote, send, token) => {
+  handleAPI.defaults.headers.Authorization = token;
   const result = handleAPI.post(`/${rote}`, send)
     .then((response) => {
       console.log(response.data);

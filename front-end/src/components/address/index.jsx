@@ -5,7 +5,7 @@ import { getOrderId } from '../../utils/postAPI';
 import Context from '../../context';
 
 function Address() {
-  const { itemsCart, total, userId } = useContext(Context);
+  const { itemsCart, total, userId, token } = useContext(Context);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [allSellers, setAllSellers] = useState([]);
   const [sellerPerson, setSellerPerson] = useState(2);
@@ -21,7 +21,7 @@ function Address() {
   };
 
   const handlePage = async () => {
-    const result = await getOrderId(route, order);
+    const result = await getOrderId(route, order, token);
     history.push(`/customer/orders/${result.orderId}`);
   };
 
