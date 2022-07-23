@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Table({ activeRemoveButton, dataTestidPrefix }) {
-  const getLocalStorage = () => JSON.parse(localStorage.getItem('cart'));
-
-  const [cart, setCart] = useState(getLocalStorage());
+function Table({ products, activeRemoveButton, dataTestidPrefix }) {
+  const [cart, setCart] = useState(products);
 
   const removeProduct = (productId) => {
     const filteredProducts = cart.filter((product) => productId !== product.id);
@@ -93,6 +91,7 @@ function Table({ activeRemoveButton, dataTestidPrefix }) {
 export default Table;
 
 Table.propTypes = {
+  products: PropTypes.arrayOf(Object).isRequired,
   activeRemoveButton: PropTypes.bool.isRequired,
   dataTestidPrefix: PropTypes.string.isRequired,
 };

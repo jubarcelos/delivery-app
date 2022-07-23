@@ -4,10 +4,15 @@ import Table from '../../components/table/index';
 import Header from '../../components/header';
 
 function Checkout() {
+  const getLocalStorage = () => JSON.parse(localStorage.getItem('cart'));
   return (
     <div>
       <Header />
-      <Table activeRemoveButton dataTestidPrefix="customer_checkout" />
+      <Table
+        products={ getLocalStorage() }
+        activeRemoveButton
+        dataTestidPrefix="customer_checkout"
+      />
       <Address />
     </div>
   );
