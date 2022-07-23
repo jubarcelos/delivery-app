@@ -3,7 +3,7 @@ const { user, sale } = require('../database/models');
 const getAll = async () => {
   const allSeller = await user.findAll({ 
     where: { role: 'seller' },
-    attributes: { exclude: ['password'] },
+    attributes: [['id', 'sellerId'], ['name', 'sellerName']],
   });
   if (!allSeller) return { message: 'seller not found' };
   return allSeller;
