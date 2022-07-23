@@ -5,15 +5,17 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     role: DataTypes.STRING
   }, {
-    timestamps: false
+    timestamps: false,
+    underscored: true,
+    tableName: 'users',
   });
 
   User.associate = (models) => {
     User.hasMany(models.sale, {
-      foreignKey: 'user_id', as: 'user',
+      foreignKey: 'userId', as: 'user',
     });
     User.hasMany(models.sale, {
-      foreignKey: 'seller_id', as: 'seller',
+      foreignKey: 'sellerId', as: 'seller',
     });
   };
 

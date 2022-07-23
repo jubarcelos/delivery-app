@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
+import Context from '../../context';
 
 function Login() {
+  const { setToken } = useContext(Context);
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,7 +40,8 @@ function Login() {
 
   const redirectUser = () => {
     const response = getLocalStorageData();
-    const { role } = response;
+    const { role, token } = response;
+    setToken(token);
     if (role && role === 'administrator') {
       history.push('/admin/manage');
     } else
