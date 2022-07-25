@@ -11,8 +11,6 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onDelete: 'Cascade',
-        onUpdate: 'Cascade',
         references: {
           model: 'users',
           key: 'id'
@@ -29,7 +27,7 @@ module.exports = {
         }
       },
       total_price: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL(9,2)
       },
       delivery_address: {
         type: Sequelize.STRING

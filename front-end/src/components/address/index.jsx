@@ -1,58 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getLocalStorage } from '../../utils/localStorage';
-// import { getApiData } from '../../utils/getAPI';
-import { setLocalStorageApiData } from '../../utils/postAPI';
+import { getApiData } from '../../utils/getAPI';
+import { getOrderId } from '../../utils/postAPI';
+import Context from '../../context';
 
 function Address() {
+  const { itemsCart, total, userId, token } = useContext(Context);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [allSellers, setAllSellers] = useState([]);
-  const [sellerPerson, setSellerPerson] = useState(0);
-  const [userId, setUserId] = useState('');
-  const [orderProducts, setOrderProducts] = useState([]);
-  const [totalOrder, setTotalOrder] = useState('');
+  const [sellerPerson, setSellerPerson] = useState(2);
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [order, setOrder] = useState({});
-  const rote = 'customer/orders';
-  // const sellerRote = 'seller';
+  const route = 'customer/orders';
+  const sellerRoute = 'seller';
   const history = useHistory();
 
-  const defineUserId = () => {
-    const { id, products, totalPrice } = getLocalStorage();
-    setUserId(id);
-    setOrderProducts(products);
-    setTotalOrder(totalPrice);
+  const setSellers = async () => {
+    const sellers = await getApiData(sellerRoute);
+    setAllSellers(sellers);
+  };
+
+  const handlePage = async () => {
+    const result = await getOrderId(route, order, token);
+    history.push(`/customer/orders/${result.orderId}`);
   };
 
   useEffect(() => {
-    const sellers = [
-      {
-        sellerName: 'joão',
-        sellerId: 123,
-      },
-      {
-        sellerName: 'Ela',
-        sellerId: 13,
-      },
-    ];
-    // const sellers = getApiData(sellerRote);
-    setAllSellers(sellers);
-  }, []);
+    setSellers();
+    if (order.userId) {
+      handlePage();
+    }
+  }, [order]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    defineUserId();
     setOrder({
       userId,
-      sellerId,
-      totalPrice: totalOrder,
+      sellerId: sellerPerson,
+      totalPrice: total,
       deliveryAddress,
       deliveryNumber,
-      products: orderProducts,
+      products: itemsCart,
     });
-    await setLocalStorageApiData(rote, order, 'orderId');
-    const { orderId } = getLocalStorage();
-    history.push(`${rote}/${orderId}`);
   };
 
   return (
@@ -68,11 +57,11 @@ function Address() {
           onChange={ ({ target }) => setSellerPerson(target.value) }
           required
         >
-          <option value="" disabled> Vendedor</option>
           { allSellers.length !== 0
             && allSellers.map((seller, key) => (
               <option
                 key={ key + 1 }
+                name="seller-name"
                 className="seller__option"
                 value={ seller.sellerId }
               >
@@ -120,5 +109,4 @@ function Address() {
     </form>
   );
 }
-
 export default Address;

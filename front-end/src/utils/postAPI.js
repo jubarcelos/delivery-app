@@ -6,13 +6,23 @@ const handleAPI = axios.create({
 
 // send = {};
 // tag e rote = string;
+const getOrderId = (rote, send, token) => {
+  handleAPI.defaults.headers.Authorization = token;
+  const result = handleAPI.post(`/${rote}`, send)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => console.log(error));
+  return result;
+};
 
-const setLocalStorageApiData = async (rote, send, tag) => {
-  const result = await handleAPI.post(`/${rote}`, send)
+const setLocalStorageApiData = (rote, send, tag) => {
+  const result = handleAPI.post(`/${rote}`, send)
     .then((response) => response.data)
     .then((data) => localStorage.setItem(tag, JSON.stringify(data)))
     .catch((error) => console.log(error));
   return result;
 };
 
-export { handleAPI, setLocalStorageApiData };
+export { handleAPI, setLocalStorageApiData, getOrderId };
