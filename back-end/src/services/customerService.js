@@ -36,7 +36,7 @@ const postOrder = async (payload) => {
 
   const saleId = createdSale.dataValues.id;
   await Promise.all(products.map(async (carProduct) => salesProduct
-    .create({ saleId, productId: carProduct.id, quantity: carProduct.quantity })));
+    .create({ saleId, productId: carProduct.id, quantity: carProduct.qty })));
   return { orderId: saleId };
 };
 
