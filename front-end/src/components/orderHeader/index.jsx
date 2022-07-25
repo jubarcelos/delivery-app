@@ -1,9 +1,7 @@
 import React from 'react';
-// import { getLocalStorage } from "../../utils/localStorage";
-// import { getApiById } from '../../utils/getAPI';
 
-function Details() {
-  // const { orderId } = getLocalStorage();
+function OrderHeader() {
+
   const btn = 'customer_order_details__element-order-details-label-delivery-status';
   const update = 'customer_order_details__element-order-details-label-delivery-status';
 
@@ -69,4 +67,4 @@ function Details() {
   );
 }
 
-export default Details;
+export default OrderHeader;
