@@ -30,13 +30,13 @@ function Table({ products, activeRemoveButton, dataTestidPrefix }) {
       <td
         data-testid={ `${dataTestidPrefix}__element-order-table-unit-price-${index}` }
       >
-        { Product.price.replace('.', ',') }
+        { Number(Product.price).toFixed(2).replace('.', ',') }
       </td
       >
       <td
         data-testid={ `${dataTestidPrefix}__element-order-table-sub-total-${index}` }
       >
-        { Product.sumItem.replace('.', ',') }
+        { Number(Product.sumItem).toFixed(2).replace('.', ',') }
       </td>
       <td
         data-testid={ `${dataTestidPrefix}__element-order-table-remove-${index}` }
