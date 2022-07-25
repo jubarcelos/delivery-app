@@ -30,14 +30,13 @@ const postOrder = async (payload) => {
     deliveryAddress,
     deliveryNumber,
     saleDate: Date.now(),
-    status: 'Pendente',
   });
 
+  console.log('serv', payload);
+
   const saleId = createdSale.dataValues.id;
-  await Promise.all(products.map(async (carProduct) => {
-    await salesProduct
-      .create({ saleId, productId: carProduct.id, quantity: carProduct.quantity });
-  }));
+  await Promise.all(products.map(async (carProduct) => salesProduct
+    .create({ saleId, productId: carProduct.id, quantity: carProduct.quantity })));
   return { orderId: saleId };
 };
 
