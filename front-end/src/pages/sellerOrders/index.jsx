@@ -1,21 +1,21 @@
 import React from 'react';
 import Header from '../../components/header';
 import ViewSales from '../../components/viewSales/viewSales';
-import GridCards from './style';
+import GridCards from '../customerOrders/style';
 
-function CustomerOrders() {
+function SellerOrders() {
   return (
     <div>
       <Header />
       <GridCards>
         <ViewSales
-          dataTest="customer_orders"
-          isSeller={ false }
-          rote="customer/orders"
+          dataTest="seller_orders"
+          isSeller
+          rote="sellers/orders"
         />
       </GridCards>
     </div>
   );
 }
 
-export default CustomerOrders;
+export default SellerOrders;
