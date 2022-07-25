@@ -30,14 +30,13 @@ const postOrder = async (payload) => {
     deliveryAddress,
     deliveryNumber,
     saleDate: Date.now(),
-    statusOrder: 'Pendente',
   });
-// pode ser statusOrder? não aceitou status lá no front.
+
+  console.log('serv', payload);
+
   const saleId = createdSale.dataValues.id;
-  await Promise.all(products.map(async (carProduct) => {
-    await salesProduct
-      .create({ saleId, productId: carProduct.id, quantity: carProduct.quantity });
-  }));
+  await Promise.all(products.map(async (carProduct) => salesProduct
+    .create({ saleId, productId: carProduct.id, quantity: carProduct.qty })));
   return { orderId: saleId };
 };
 
