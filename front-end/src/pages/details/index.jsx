@@ -2,22 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import OrderHeader from '../../components/orderHeader';
 import Header from '../../components/header';
-import Table from '../../components/table/index';
+import TableDetails from '../../components/table/tableDetails';
 import { getApiById } from '../../utils/getAPI';
 
 function Details() {
-  const [pedido, setPedido] = useState({});
+  const [pedido, setPedido] = useState({
+    sale: {},
+    products: [],
+  });
   const { id } = useParams();
 
   useEffect(() => {
     const getOrderById = async () => {
-      const order = await getApiById('/customer/orders', id);
+      const order = await getApiById('customer/orders', id);
+      console.log(order);
       const orderFormat = {
-        orderId: order.findOrder.id,
+        orderId: order.sale.id,
         sellerName: order.nameSeller,
-        saleDate: order.findOrder.saleDate,
-        statusOrder: order.findOrder.status,
-        products: order.findOrder.products.map((product) => (
+        saleDate: order.sale.saleDate,
+        statusOrder: order.sale.status,
+        products: order.sale.products.map((product) => (
           {
             id: product.id,
             name: product.name,
@@ -26,6 +30,7 @@ function Details() {
             sumItem: product.salesProduct.quantity * Number(product.price),
           })),
       };
+      console.log(orderFormat);
       setPedido(orderFormat);
     };
     getOrderById();
@@ -59,10 +64,9 @@ function Details() {
   return (
     <div>
       <Header />
-      <OrderHeader />
-      <Table
+      <OrderHeader order={ pedido } />
+      <TableDetails
         products={ pedido.products }
-        activeRemoveButton={ false }
         dataTestidPrefix="customer_order_details"
       />
     </div>
