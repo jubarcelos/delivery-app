@@ -49,7 +49,7 @@ function ViewSales({ dataTest, isSeller, rote }) {
                   <span
                     data-testid={ `${dataTest}__element-delivery-status-${id}` }
                   >
-                    { ` ${status}` }
+                    {` ${status}`}
                   </span>
                 </p>
                 <p
