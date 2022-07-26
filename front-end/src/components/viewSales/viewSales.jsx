@@ -7,7 +7,6 @@ import CardOrder from './style';
 
 function ViewSales({ dataTest, isSeller, rote }) {
   const [orders, setOrders] = useState([]);
-
   const fetchOrders = async () => {
     axios.get(`http://localhost:3001/${rote}`)
       .then((response) => response.data)

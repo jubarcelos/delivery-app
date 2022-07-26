@@ -1,4 +1,4 @@
-const { product, sale, salesProduct } = require('../database/models');
+const { product, sale, salesProduct, user } = require('../database/models');
 
 const getAll = async () => {
  const allProducts = await product.findAll();
@@ -17,8 +17,22 @@ const getAllOrders = async () => {
 };
 
 const getByIdOrders = async (id) => {
-  const allOrders = await sale.findByPk(id);
-  return allOrders;
+  const findSaller = await user.findByPk(id);
+  const findOrder = await sale.findByPk(
+    id,
+    { include: [{ 
+        model: product, 
+        as: 'products',
+        required: true, 
+        attributes: { exclude: ['url_image'] },
+        through: { attributes: ['quantity'] },
+      },
+    ] }, 
+  );
+
+  const { name } = findSaller.dataValues;
+
+  return { nameSeller: name, sale: findOrder };
 };
 
 const postOrder = async (payload) => {
