@@ -73,7 +73,7 @@ function Login() {
   };
 
   return (
-    testToken !== null || testToken !== undefined ? redirectUser() : (
+    testToken ? redirectUser() : (
       <form>
         <label htmlFor="email">
           Login
