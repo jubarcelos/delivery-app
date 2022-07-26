@@ -7,6 +7,7 @@ function Login() {
   const history = useHistory();
   const response = getLocalStorage();
 
+  // rever a remoção dessa função para algo aproveitável em form e login
   const redirectUser = () => {
     const { role } = response;
     if (role && role === 'administrator') {
