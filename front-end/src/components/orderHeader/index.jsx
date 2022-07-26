@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 function OrderHeader({ order }) {
-  const btn = 'customer_order_details__element-order-details-label-delivery-status';
+  const btn = 'customer_order_details__button-delivery-check';
   const update = 'customer_order_details__element-order-details-label-delivery-status';
 
   // const pedidoMock = {
@@ -34,30 +35,31 @@ function OrderHeader({ order }) {
   return (
     <div>
       <ul>
-        <li data-test-id="customer_order_details__element-order-details-label-order-id">
+        <li data-testid="customer_order_details__element-order-details-label-order-id">
           Pedido
           { orderId }
         </li>
         <li
-          data-test-id="customer_order_details__element-order-details-label-seller-name"
+          data-testid="customer_order_details__element-order-details-label-seller-name"
         >
           P. Vend:
           { sellerName }
         </li>
         <li
-          data-test-id="customer_order_details__element-order-details-label-order-date"
+          data-testid="customer_order_details__element-order-details-label-order-date"
         >
-          { saleDate }
+          { moment(saleDate).format('DD/MM/YYYY') }
         </li>
         <li
-          data-test-id={ update }
+          data-testid={ update }
         >
           { statusOrder }
         </li>
       </ul>
       <button
-        data-test-id={ btn }
+        data-testid={ btn }
         type="button"
+        disabled
       >
         Marcar como entregue
       </button>
