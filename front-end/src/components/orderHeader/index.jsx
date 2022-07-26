@@ -58,7 +58,6 @@ function OrderHeader({ order }) {
       <button
         data-test-id={ btn }
         type="button"
-        disabled="true"
       >
         Marcar como entregue
       </button>

@@ -18,7 +18,7 @@ function Details() {
       console.log(order);
       const orderFormat = {
         orderId: order.sale.id,
-        sellerName: order.nameSeller,
+        sellerName: order.sale.seller.name,
         saleDate: order.sale.saleDate,
         statusOrder: order.sale.status,
         products: order.sale.products.map((product) => (
