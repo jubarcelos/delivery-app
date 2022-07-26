@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import CardOrder from './style';
 
@@ -23,38 +25,40 @@ function ViewSales({ dataTest, isSeller, rote }) {
           const { id, totalPrice, status, saleDate } = order;
           return (
             <CardOrder key={ id }>
-              <p>
-                Pedido
-                <span
+              <Link to={ `/${rote}/${id}` }>
+                <p
                   data-testid={ `${dataTest}__element-order-id-${id}` }
                 >
-                  { ` ${id}` }
-                </span>
-              </p>
-              <p
-                data-testid={ `${dataTest}__element-order-date-${id}` }
-              >
-                { saleDate }
-              </p>
-              <p
-                data-testid={ `${dataTest}__element-card-price-${id} ` }
-              >
-                { totalPrice }
-              </p>
-              <p>
-                Status:
-                <span
-                  data-testid={ `${dataTest}__element-delivery-status-${id} ` }
+                  Pedido
+                  <span>
+                    { ` ${id}` }
+                  </span>
+                </p>
+                <p
+                  data-testid={ `${dataTest}__element-order-date-${id}` }
                 >
-                  { ` ${status}` }
-                </span>
-              </p>
-              <p
-                data-testid={ `seller_orders__element-card-address-${id}` }
-                hidden={ !isSeller }
-              >
-                { order.deliveryAdress }
-              </p>
+                  { moment(saleDate).format('DD/MM/YYYY') }
+                </p>
+                <p
+                  data-testid={ `${dataTest}__element-card-price-${id}` }
+                >
+                  { totalPrice.replace('.', ',') }
+                </p>
+                <p>
+                  Status:
+                  <span
+                    data-testid={ `${dataTest}__element-delivery-status-${id}` }
+                  >
+                    { ` ${status}` }
+                  </span>
+                </p>
+                <p
+                  data-testid={ `seller_orders__element-card-address-${id}` }
+                  hidden={ !isSeller }
+                >
+                  { order.deliveryAdress }
+                </p>
+              </Link>
             </CardOrder>
           );
         })
