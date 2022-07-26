@@ -11,7 +11,7 @@ function SellerOrders() {
         <ViewSales
           dataTest="seller_orders"
           isSeller
-          rote="sellers/orders"
+          rote="seller/orders"
         />
       </GridCards>
     </div>
