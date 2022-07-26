@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+// import moment from 'moment';
 import PropTypes from 'prop-types';
 import CardOrder from './style';
 
@@ -47,7 +48,7 @@ function ViewSales({ dataTest, isSeller, rote }) {
                   <span
                     data-testid={ `${dataTest}__element-delivery-status-${id} ` }
                   >
-                    { ` ${status}` }
+                    {` ${status}`}
                   </span>
                 </p>
                 <p
