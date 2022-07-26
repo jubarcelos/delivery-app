@@ -11,16 +11,14 @@ function Products() {
 
   const history = useHistory();
 
-  const fetchProducts = async () => {
+  const fetchProducts = () => {
     axios.get('http://localhost:3001/customer/products')
       .then((response) => response.data)
       .then((data) => setProducts(data))
       .catch((error) => console.log(error));
   };
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  useEffect(() => { fetchProducts(); }, []);
 
   useEffect(() => {
     if (itemsCart.length !== null) {
