@@ -7,7 +7,6 @@ import CardOrder from './style';
 
 function ViewSales({ dataTest, isSeller, rote }) {
   const [orders, setOrders] = useState([]);
-
   const fetchOrders = async () => {
     axios.get(`http://localhost:3001/${rote}`)
       .then((response) => response.data)
@@ -26,28 +25,28 @@ function ViewSales({ dataTest, isSeller, rote }) {
           return (
             <CardOrder key={ id }>
               <Link to={ `/${rote}/${id}` }>
-                <p
-                  data-testid={ `${dataTest}__element-order-id-${id}` }
-                >
+                <p>
                   Pedido
-                  <span>
+                  <span
+                    data-testid={ `${dataTest}__element-order-id-${id}` }
+                  >
                     { ` ${id}` }
                   </span>
                 </p>
                 <p
                   data-testid={ `${dataTest}__element-order-date-${id}` }
                 >
-                  { moment(saleDate).format('DD/MM/YYYY') }
+                  { saleDate }
                 </p>
                 <p
-                  data-testid={ `${dataTest}__element-card-price-${id}` }
+                  data-testid={ `${dataTest}__element-card-price-${id} ` }
                 >
-                  { totalPrice.replace('.', ',') }
+                  { totalPrice }
                 </p>
                 <p>
                   Status:
                   <span
-                    data-testid={ `${dataTest}__element-delivery-status-${id}` }
+                    data-testid={ `${dataTest}__element-delivery-status-${id} ` }
                   >
                     { ` ${status}` }
                   </span>
