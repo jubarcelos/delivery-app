@@ -30,7 +30,7 @@ function ViewSales({ dataTest, isSeller, rote }) {
                 >
                   Pedido
                   <span>
-                    { ` ${id}` }
+                    {` ${id}`}
                   </span>
                 </p>
                 <p
