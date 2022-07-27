@@ -29,7 +29,7 @@ export default class Routes extends Component {
             <Route exact path="/customer/checkout" component={ Checkout } />
             <Route exact path="/seller" component={ Saller } />
             <Route exact path="/seller/orders" component={ SellerOrders } />
-            <Route exact path="/admin" component={ Admin } />
+            <Route exact path="/admin/manage" component={ Admin } />
           </Switch>
         </main>
       </div>

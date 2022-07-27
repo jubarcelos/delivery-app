@@ -25,4 +25,23 @@ const setLocalStorageApiData = (rote, send, tag) => {
   return result;
 };
 
-export { handleAPI, setLocalStorageApiData, getOrderId };
+const setApiDataStatusCode = async (route, send, token) => {
+  let statusCode = 0;
+  if (route.includes('admin')) handleAPI.defaults.headers.Authorization = token;
+  await handleAPI.post(`/${route}`, send)
+    .then((response) => {
+      statusCode = response.status;
+      return response.data;
+    })
+    .then((data) => {
+      if (!route.includes('admin')) localStorage.setItem('user', JSON.stringify(data));
+    })
+    .catch((error) => {
+      console.log(error);
+      statusCode = error.response.status;
+    });
+
+  return statusCode;
+};
+
+export { handleAPI, setLocalStorageApiData, getOrderId, setApiDataStatusCode };
