@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-function Table({ products, activeRemoveButton, dataTestidPrefix }) {
-  const [cart, setCart] = useState(products);
-
-  const removeProduct = (productId) => {
-    const filteredProducts = cart.filter((product) => productId !== product.id);
-    setCart(filteredProducts);
-    localStorage.setItem('cart', JSON.stringify(filteredProducts));
-  };
-
+function TableDetails({ products, dataTestidPrefix }) {
   const renderProduct = (Product, index) => (
     <tr key={ Product.id }>
       <td
@@ -38,24 +30,12 @@ function Table({ products, activeRemoveButton, dataTestidPrefix }) {
       >
         { Number(Product.sumItem).toFixed(2).replace('.', ',') }
       </td>
-      <td
-        data-testid={ `${dataTestidPrefix}__element-order-table-remove-${index}` }
-        hidden={ !activeRemoveButton }
-      >
-        <button
-          type="button"
-          data-testid="delete-btn"
-          onClick={ () => removeProduct(Product.id) }
-        >
-          Excluir
-        </button>
-      </td>
     </tr>
   );
 
   const totalValue = () => {
     const value = 0;
-    const soma = cart.reduce(
+    const soma = products.reduce(
       (acumulador, valorAtual) => acumulador + Number(valorAtual.sumItem), value,
     );
     return soma.toFixed(2).replace('.', ',');
@@ -71,11 +51,10 @@ function Table({ products, activeRemoveButton, dataTestidPrefix }) {
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-total</th>
-            <th hidden={ !activeRemoveButton }>Remover Item</th>
           </tr>
         </thead>
         <tbody>
-          { cart.map((product, index) => renderProduct(product, index)) }
+          { products.map((product, index) => renderProduct(product, index)) }
         </tbody>
       </table>
       <div
@@ -88,10 +67,9 @@ function Table({ products, activeRemoveButton, dataTestidPrefix }) {
   );
 }
 
-export default Table;
+export default TableDetails;
 
-Table.propTypes = {
+TableDetails.propTypes = {
   products: PropTypes.arrayOf(Object).isRequired,
-  activeRemoveButton: PropTypes.bool.isRequired,
   dataTestidPrefix: PropTypes.string.isRequired,
 };
