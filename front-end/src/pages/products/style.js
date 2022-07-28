@@ -4,7 +4,7 @@ const GridProducts = styled.div`
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  justify-content: initial;
 `;
 
 export default GridProducts;
