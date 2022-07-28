@@ -68,6 +68,7 @@ function Form() {
 
   return (
     <FormStyle>
+      <h1>Disk Gole</h1>
       <div id="bg-form">
         <div>
           <label htmlFor="email" className="input-login">

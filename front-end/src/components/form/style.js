@@ -5,12 +5,20 @@ const FormStyle = styled.form`
   display: flex;
   flex-direction: column;
   
+  h1 {
+    color: #036B52;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    margin-top: 10%;
+    text-align: center;
+  }
+
   #bg-form {
     border: solid 1px #b5b5b5;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    margin: 9% auto auto auto;
+    margin: 0 auto auto auto;
     padding: 3%;
     text-align: center;
     width: 30%;
