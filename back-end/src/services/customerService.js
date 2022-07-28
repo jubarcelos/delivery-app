@@ -16,8 +16,7 @@ const getAllOrders = async () => {
   return allOrders;
 };
 
-const getByIdOrders = async (id) => {
-  const findSaller = await user.findByPk(id);
+const getByIdOrders = async (id) => { 
   const findOrder = await sale.findByPk(
     id,
     { include: [{ 
@@ -27,12 +26,16 @@ const getByIdOrders = async (id) => {
         attributes: { exclude: ['url_image'] },
         through: { attributes: ['quantity'] },
       },
+      { 
+        model: user, 
+        as: 'seller',
+        required: true, 
+        attributes: { exclude: ['id', 'password', 'role'] },
+      },
     ] }, 
   );
 
-  const { name } = findSaller.dataValues;
-
-  return { nameSeller: name, sale: findOrder };
+  return { sale: findOrder };
 };
 
 const postOrder = async (payload) => {

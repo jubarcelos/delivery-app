@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-// import moment from 'moment';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import CardOrder from './style';
 
@@ -25,28 +25,28 @@ function ViewSales({ dataTest, isSeller, rote }) {
           return (
             <CardOrder key={ id }>
               <Link to={ `/${rote}/${id}` }>
-                <p>
+                <p
+                  data-testid={ `${dataTest}__element-order-id-${id}` }
+                >
                   Pedido
-                  <span
-                    data-testid={ `${dataTest}__element-order-id-${id}` }
-                  >
-                    { ` ${id}` }
+                  <span>
+                    {` ${id}`}
                   </span>
                 </p>
                 <p
                   data-testid={ `${dataTest}__element-order-date-${id}` }
                 >
-                  { saleDate }
+                  { moment(saleDate).format('DD/MM/YYYY') }
                 </p>
                 <p
-                  data-testid={ `${dataTest}__element-card-price-${id} ` }
+                  data-testid={ `${dataTest}__element-card-price-${id}` }
                 >
-                  { totalPrice }
+                  { totalPrice.replace('.', ',') }
                 </p>
                 <p>
                   Status:
                   <span
-                    data-testid={ `${dataTest}__element-delivery-status-${id} ` }
+                    data-testid={ `${dataTest}__element-delivery-status-${id}` }
                   >
                     { ` ${status}` }
                   </span>
