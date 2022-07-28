@@ -23,12 +23,14 @@ function Header() {
                 <Link
                   data-testid="customer_products__element-navbar-link-products"
                   to="/customer/products"
+                  className="title"
                 >
                   Produtos
                 </Link>
                 <Link
                   data-testid="customer_products__element-navbar-link-orders"
                   to="/customer/orders"
+                  className="title"
                 >
                   Meus Pedidos
                 </Link>
@@ -37,20 +39,28 @@ function Header() {
         }
 
         {
-          role === 'administrator' && (<h1> Gerenciar usuários </h1>)
+          role === 'administrator' && (
+            <h1 className="title"> Gerenciar usuários </h1>
+          )
         }
         {
           role !== 'administrator'
           && role !== 'customer'
-          && (<h1> Pedidos </h1>)
+          && (<h1 className="title"> Pedidos </h1>)
         }
       </div>
-      <div>
-        <h1 data-testid="customer_products__element-navbar-user-full-name">{ name }</h1>
+      <div id="user">
+        <h1
+          data-testid="customer_products__element-navbar-user-full-name"
+          className="title"
+        >
+          { name }
+        </h1>
         <Link
           data-testid="customer_products__element-navbar-link-logout"
           onClick={ clearUser }
           to="/login"
+          className="title"
         >
           Sair
         </Link>
