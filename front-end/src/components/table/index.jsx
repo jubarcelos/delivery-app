@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { TableStyle, ButtonTotalStyles } from './style';
 
 function Table({ products, activeRemoveButton, dataTestidPrefix }) {
   const [cart, setCart] = useState(products);
@@ -62,9 +63,9 @@ function Table({ products, activeRemoveButton, dataTestidPrefix }) {
   };
 
   return (
-    <div>
+    <TableStyle>
       <table border="1">
-        <thead>
+        <thead id="table-header">
           <tr>
             <th>Item</th>
             <th>Descrição</th>
@@ -78,13 +79,13 @@ function Table({ products, activeRemoveButton, dataTestidPrefix }) {
           { cart.map((product, index) => renderProduct(product, index)) }
         </tbody>
       </table>
-      <div
+      <ButtonTotalStyles
         data-testid={ `${dataTestidPrefix}__element-order-total-price` }
       >
         Total:
         { totalValue() }
-      </div>
-    </div>
+      </ButtonTotalStyles>
+    </TableStyle>
   );
 }
 

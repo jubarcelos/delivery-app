@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { getApiData } from '../../utils/getAPI';
 import { getOrderId } from '../../utils/postAPI';
 import Context from '../../context';
+import AdressFormStyle from './styled';
 
 function Address() {
   const { itemsCart, total, userId, token } = useContext(Context);
@@ -45,56 +46,61 @@ function Address() {
   };
 
   return (
-    <form>
-      <label htmlFor="seller-name">
-        P. Vendedora Responsável:
-        <select
-          name="seller-name"
-          id="seller-name"
-          placeholder="Fulana Pereira"
-          data-testid="customer_checkout__select-seller"
-          value={ sellerPerson }
-          onChange={ ({ target }) => setSellerPerson(target.value) }
-          required
-        >
-          { allSellers.length !== 0
-            && allSellers.map((seller, key) => (
-              <option
-                key={ key + 1 }
-                name="seller-name"
-                className="seller__option"
-                value={ seller.sellerId }
-              >
-                { seller.sellerName }
-              </option>
-            ))}
-        </select>
-      </label>
-      <label htmlFor="input-address">
-        Endereço:
-        <input
-          type="text"
-          data-testid="customer_checkout__input-address"
-          name="input-address"
-          id="input-address"
-          placeholder="Rua Pedro Silva, bairro Villa"
-          value={ deliveryAddress }
-          onChange={ ({ target }) => setDeliveryAddress(target.value) }
-        />
-      </label>
-      {/* <span>a</span> */}
-      <label htmlFor="input-addressNumber">
-        Numero:
-        <input
-          data-testid="customer_checkout__input-addressNumber"
-          id="input-addressNumber"
-          name="input-addressNumber"
-          type="input-addressNumber"
-          placeholder="198"
-          value={ deliveryNumber }
-          onChange={ ({ target }) => setDeliveryNumber(target.value) }
-        />
-      </label>
+    <AdressFormStyle>
+      <div>
+        <label htmlFor="seller-name">
+          P. Vendedora Responsável:
+          <select
+            name="seller-name"
+            id="seller-name"
+            placeholder="Fulana Pereira"
+            data-testid="customer_checkout__select-seller"
+            value={ sellerPerson }
+            onChange={ ({ target }) => setSellerPerson(target.value) }
+            required
+          >
+            { allSellers.length !== 0
+              && allSellers.map((seller, key) => (
+                <option
+                  key={ key + 1 }
+                  name="seller-name"
+                  className="seller__option"
+                  value={ seller.sellerId }
+                >
+                  { seller.sellerName }
+                </option>
+              ))}
+          </select>
+        </label>
+      </div>
+      <div>
+        <label htmlFor="input-address">
+          Endereço:
+          <input
+            type="text"
+            data-testid="customer_checkout__input-address"
+            name="input-address"
+            id="input-address"
+            placeholder="Rua Pedro Silva, bairro Villa"
+            value={ deliveryAddress }
+            onChange={ ({ target }) => setDeliveryAddress(target.value) }
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="input-addressNumber">
+          Numero:
+          <input
+            data-testid="customer_checkout__input-addressNumber"
+            id="input-addressNumber"
+            name="input-addressNumber"
+            type="input-addressNumber"
+            placeholder="198"
+            value={ deliveryNumber }
+            onChange={ ({ target }) => setDeliveryNumber(target.value) }
+          />
+        </label>
+      </div>
       <button
         type="submit"
         data-testid="customer_checkout__button-submit-order"
@@ -107,7 +113,7 @@ function Address() {
       >
         Finalizar pedido
       </button>
-    </form>
+    </AdressFormStyle>
   );
 }
 export default Address;

@@ -5,7 +5,7 @@ export const GridProducts = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: initial;
-  `;
+`;
 
 export const ButtonTotalStyles = styled.button`
   background-color: #036B52;
