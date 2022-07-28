@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import Context from '../../context';
 import { getLocalStorage } from '../../utils/localStorage';
+import FormStyle from './style';
 
 function Form() {
   const { setToken } = useContext(Context);
@@ -66,58 +67,65 @@ function Form() {
   };
 
   return (
-    <form>
-      <label htmlFor="email">
-        Login
-        <input
-          type="text"
-          data-testid="common_login__input-email"
-          name="email"
-          id="email"
-          placeholder="Digite seu Email"
-          value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
-        />
-      </label>
-      <label htmlFor="password">
-        Senha
-        <input
-          data-testid="common_login__input-password"
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Digite sua senha"
-          value={ password }
-          onChange={ ({ target }) => setPassword(target.value) }
-        />
-      </label>
-      <button
-        type="submit"
-        data-testid="common_login__button-login"
-        onClick={ handleSubmit }
-        disabled={ setDisabled() }
-      >
-        Login
-      </button>
-      <button
-        type="button"
-        data-testid="common_login__button-register"
-      >
-        <Link
-          to="/register"
+    <FormStyle>
+      <div id="bg-form">
+        <div>
+          <label htmlFor="email" className="input-login">
+            Login
+            <input
+              type="text"
+              data-testid="common_login__input-email"
+              name="email"
+              id="email"
+              placeholder="Digite seu Email"
+              value={ email }
+              onChange={ ({ target }) => setEmail(target.value) }
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="password" className="input-login">
+            Senha
+            <input
+              data-testid="common_login__input-password"
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Digite sua senha"
+              value={ password }
+              onChange={ ({ target }) => setPassword(target.value) }
+            />
+          </label>
+        </div>
+        <button
+          type="submit"
+          data-testid="common_login__button-login"
+          onClick={ handleSubmit }
+          disabled={ setDisabled() }
         >
-          Ainda não tenho conta
-        </Link>
-      </button>
+          Login
+        </button>
+        <button
+          type="button"
+          data-testid="common_login__button-register"
+          id="btn-register"
+        >
+          <Link
+            to="/register"
+          >
+            Ainda não tenho conta
+          </Link>
+        </button>
 
-      <span
-        className="login__error"
-        data-testid="common_login__element-invalid-email"
-        hidden={ !errorMessage }
-      >
-        { errorMessage }
-      </span>
-    </form>
+        <span
+          className="login__error"
+          data-testid="common_login__element-invalid-email"
+          hidden={ !errorMessage }
+        >
+          { errorMessage }
+        </span>
+      </div>
+    </FormStyle>
   );
 }
 
