@@ -53,8 +53,8 @@ function FormAdm({ formType, route }) {
 
   return (
     <FormStyle>
+      <h1>Criar Conta</h1>
       <div id="bg-form">
-
         <input
           type="text"
           name="name"
