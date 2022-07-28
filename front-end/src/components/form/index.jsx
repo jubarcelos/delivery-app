@@ -103,7 +103,7 @@ function Form() {
           onClick={ handleSubmit }
           disabled={ setDisabled() }
         >
-          Login
+          LOGIN
         </button>
         <button
           type="button"
