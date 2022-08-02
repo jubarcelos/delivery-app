@@ -67,9 +67,9 @@ function Card({ produto }) {
         data-testid={ `customer_products__img-card-bg-image-${produto.id}` }
         src={ produto.url_image }
         alt={ `imagem do produto ${produto.name}` }
-        // width="100%"
+        width="60%"
         object-fit="contain"
-        height="260"
+        height="200"
       />
       <div id="infos">
         <p data-testid={ `customer_products__element-card-title-${produto.id}` }>
