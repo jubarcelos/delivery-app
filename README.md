@@ -80,6 +80,21 @@ I also developed the Address component inside of checkout page.
 This project is like a zé delivery.
 At Brazil, this company is a website to buy things to drink and receive in your home.
 
+Have three classes of users, costumers, sellers and administrator.
+We use a JWT token to validate login user and redirect to a correct page.
+
+To explore the page you can register yourself, or try some of them users:
+
+    email: "adm@deliveryapp.com"
+    password: "--adm2@21!!--",
+
+    email: "fulana@deliveryapp.com"
+    password: "fulana@123",
+
+    email: "zebirita@email.com"
+    password: "$#zebirita#$",
+
+
 ## How it looks
 
 ![login](readme_images/login.png)
@@ -88,15 +103,23 @@ At Brazil, this company is a website to buy things to drink and receive in your 
 ![order](readme_images/order.png)
 
 
-
-
 ## Get this project to your machine:
+
+You will need to use a mySql, if you don't have one, you can use a siple docker to use MySQL.
 
 Go to a repository you like to save it and make a clone:
 
 ```git clone git@github.com:jubarcelos/appDelivery.git```
 
-Open the repository and in the general terminal, execute these commands:
+Open the repository and inside the backend, archive create a new file named '.env'
+Inside this file write the info about your mySQL configuration:
+The repository has a file named '.env.example, you can use that one and rename that.
+
+MYSQL_PASSWORD=your_password
+MYSQL_HOST=your_host
+HOSTNAME=your_host
+
+Now in the general terminal, execute these commands:
 
 ``` npm install ```
 ``` dev:prestart ```
