@@ -115,9 +115,9 @@ Open the repository and inside the backend, archive create a new file named '.en
 Inside this file write the info about your mySQL configuration:
 The repository has a file named '.env.example, you can use that one and rename that.
 
-MYSQL_PASSWORD=your_password
-MYSQL_HOST=your_host
-HOSTNAME=your_host
+    MYSQL_PASSWORD=your_password
+    MYSQL_HOST=your_host
+    HOSTNAME=your_host
 
 Now in the general terminal, execute these commands:
 
