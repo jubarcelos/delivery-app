@@ -103,15 +103,23 @@ To explore the page you can register yourself, or try some of them users:
 ![order](readme_images/order.png)
 
 
-
-
 ## Get this project to your machine:
+
+You will need to use a mySql, if you don't have one, you can use a siple docker to use MySQL.
 
 Go to a repository you like to save it and make a clone:
 
 ```git clone git@github.com:jubarcelos/appDelivery.git```
 
-Open the repository and in the general terminal, execute these commands:
+Open the repository and inside the backend, archive create a new file named '.env'
+Inside this file write the info about your mySQL configuration:
+The repository has a file named '.env.example, you can use that one and rename that.
+
+MYSQL_PASSWORD=your_password
+MYSQL_HOST=your_host
+HOSTNAME=your_host
+
+Now in the general terminal, execute these commands:
 
 ``` npm install ```
 ``` dev:prestart ```
