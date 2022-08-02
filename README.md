@@ -109,7 +109,7 @@ You will need to use a mySql, if you don't have one, you can use a siple docker 
 
 Go to a repository you like to save it and make a clone:
 
-```git clone git@github.com:jubarcelos/appDelivery.git```
+```git clone git@github.com:jubarcelos/delivery-app.git```
 
 Open the repository and inside the backend, archive create a new file named '.env'
 Inside this file write the info about your mySQL configuration:
