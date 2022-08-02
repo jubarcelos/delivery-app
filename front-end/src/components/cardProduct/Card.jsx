@@ -67,16 +67,19 @@ function Card({ produto }) {
         data-testid={ `customer_products__img-card-bg-image-${produto.id}` }
         src={ produto.url_image }
         alt={ `imagem do produto ${produto.name}` }
-        width="200"
-        height="200"
+        // width="100%"
+        object-fit="contain"
+        height="260"
       />
-      <p data-testid={ `customer_products__element-card-title-${produto.id}` }>
-        { produto.name }
-      </p>
-      <p data-testid={ `customer_products__element-card-price-${produto.id}` }>
-        { produto.price.replace('.', ',') }
-      </p>
-      <div>
+      <div id="infos">
+        <p data-testid={ `customer_products__element-card-title-${produto.id}` }>
+          { produto.name }
+        </p>
+        <p data-testid={ `customer_products__element-card-price-${produto.id}` }>
+          { produto.price.replace('.', ',') }
+        </p>
+      </div>
+      <div id="div-qty">
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${produto.id}` }

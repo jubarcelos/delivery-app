@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/header';
-import GridProducts from './style';
+import { GridProducts, ButtonTotalStyles } from './style';
 import Card from '../../components/cardProduct/Card';
 import Context from '../../context';
 
@@ -43,7 +43,7 @@ function Products() {
           ))
         }
       </GridProducts>
-      <button
+      <ButtonTotalStyles
         type="button"
         data-testid="customer_products__button-cart"
         onClick={ () => history.push('/customer/checkout') }
@@ -53,7 +53,7 @@ function Products() {
         <span data-testid="customer_products__checkout-bottom-value">
           { total.toFixed(2).toString().replace('.', ',') }
         </span>
-      </button>
+      </ButtonTotalStyles>
     </div>
   );
 }

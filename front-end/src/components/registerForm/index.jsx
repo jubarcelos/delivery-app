@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { setApiDataStatusCode } from '../../utils/postAPI';
 import Context from '../../context';
+import FormStyle from '../form/style';
 
 function FormAdm({ formType, route }) {
   const { token } = useContext(Context);
@@ -51,72 +52,78 @@ function FormAdm({ formType, route }) {
   };
 
   return (
-    <form>
-      <input
-        type="text"
-        name="name"
-        value={ name }
-        data-testid={ `${formType}__input-name` }
-        placeholder="Seu nome"
-        onChange={ ({ target }) => setName(target.value) }
-      />
-      <input
-        type="text"
-        name="email"
-        value={ email }
-        data-testid={ `${formType}__input-email` }
-        placeholder="seu-email@site.com.br"
-        onChange={ ({ target }) => setEmail(target.value) }
-      />
-      <input
-        type="password"
-        name="password"
-        value={ password }
-        data-testid={ `${formType}__input-password` }
-        placeholder="******"
-        onChange={ ({ target }) => setPassword(target.value) }
-      />
-      { formType === 'admin_manage'
-        ? (
-          <label htmlFor="type">
-            <select
-              name="type"
-              id="type"
-              className="select-type"
-              placeholder="Vendedor"
-              data-testid="admin_manage__select-role"
-              value={ role }
-              onChange={ ({ target }) => setUserType(target.value) }
-              required
-            >
-              { allType.length !== 0
-              && allType.map((type, key) => (
-                <option
-                  key={ key + 1 }
-                  name="type-name"
-                  value={ type }
-                >
-                  { type }
-                </option>
-              ))}
-            </select>
-          </label>
-        ) : null}
-      <button
-        type="button"
-        disabled={ !validate() }
-        data-testid={ `${formType}__button-register` }
-        onClick={ handleClick }
-      >
-        CADASTRAR
-      </button>
-      <span
-        data-testid={ dataTestId[formType] }
-        hidden={ !errorMessage }
-      >
-        { errorMessage }
-      </span>
-    </form>
+    <FormStyle>
+      <h1>Criar Conta</h1>
+      <div id="bg-form">
+        <input
+          type="text"
+          name="name"
+          value={ name }
+          data-testid={ `${formType}__input-name` }
+          placeholder="Seu nome"
+          onChange={ ({ target }) => setName(target.value) }
+          className="input-login"
+        />
+        <input
+          type="text"
+          name="email"
+          value={ email }
+          data-testid={ `${formType}__input-email` }
+          placeholder="seu-email@site.com.br"
+          onChange={ ({ target }) => setEmail(target.value) }
+          className="input-login"
+        />
+        <input
+          type="password"
+          name="password"
+          value={ password }
+          data-testid={ `${formType}__input-password` }
+          placeholder="******"
+          onChange={ ({ target }) => setPassword(target.value) }
+          className="input-login"
+        />
+        { formType === 'admin_manage'
+          ? (
+            <label htmlFor="type" className="input-login">
+              <select
+                name="type"
+                id="type"
+                className="select-type"
+                placeholder="Vendedor"
+                data-testid="admin_manage__select-role"
+                value={ role }
+                onChange={ ({ target }) => setUserType(target.value) }
+                required
+              >
+                { allType.length !== 0
+                && allType.map((type, key) => (
+                  <option
+                    key={ key + 1 }
+                    name="type-name"
+                    value={ type }
+                  >
+                    { type }
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : null}
+        <button
+          type="button"
+          disabled={ !validate() }
+          data-testid={ `${formType}__button-register` }
+          onClick={ handleClick }
+        >
+          CADASTRAR
+        </button>
+        <span
+          data-testid={ dataTestId[formType] }
+          hidden={ !errorMessage }
+        >
+          { errorMessage }
+        </span>
+      </div>
+    </FormStyle>
   );
 }
 
