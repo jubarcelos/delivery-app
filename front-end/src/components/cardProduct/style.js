@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const CardStyle = styled.div`
   align-items: center;
+  background-color: white;
   border-radius: 3px;
   border: solid 1px #b5b5b5;
   display: flex;
