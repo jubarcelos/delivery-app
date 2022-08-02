@@ -134,18 +134,6 @@ In the backend terminal, execute this command:
 
 It will up the DB and start a backend.
 
-## Start frontend:
-
-In the frontend terminal, execute this command:
-
-``` npm start ```
-
-It will up the user view, the page.
-
-
-``` HEADLESS=false npm run test ```
-
-
 ## Things to improve
 
 - [ ] Make a responsive website;
