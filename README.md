@@ -142,15 +142,6 @@ In the frontend terminal, execute this command:
 
 It will up the user view, the page.
 
-## Tests from school:
-
-From the general terminal, to run the tests:
-
-You can use this command:
-
-``` npm run test ```
-
-Or this other to see the page occurrences:
 
 ``` HEADLESS=false npm run test ```
 
