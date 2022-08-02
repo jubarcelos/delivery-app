@@ -122,7 +122,7 @@ The repository has a file named '.env.example, you can use that one and rename t
 Now in the general terminal, execute these commands:
 
 ``` npm install ```
-``` dev:prestart ```
+``` npm run dev:prestart ```
 
 It will download all the project dependences.
 
