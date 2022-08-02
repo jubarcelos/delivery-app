@@ -15,7 +15,7 @@ const registerUser = async ({ email, password, name }) => {
     role: createdUser.dataValues.role,
   };
   const token = createToken(payload);
-  return { user: payload, token };
+  return { ...payload, token };
 };
 
 module.exports = {
