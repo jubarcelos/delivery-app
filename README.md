@@ -80,6 +80,21 @@ I also developed the Address component inside of checkout page.
 This project is like a zé delivery.
 At Brazil, this company is a website to buy things to drink and receive in your home.
 
+Have three classes of users, costumers, sellers and administrator.
+We use a JWT token to validate login user and redirect to a correct page.
+
+To explore the page you can register yourself, or try some of them users:
+
+    email: "adm@deliveryapp.com"
+    password: "--adm2@21!!--",
+
+    email: "fulana@deliveryapp.com"
+    password: "fulana@123",
+
+    email: "zebirita@email.com"
+    password: "$#zebirita#$",
+
+
 ## How it looks
 
 ![login](readme_images/login.png)
