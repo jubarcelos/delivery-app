@@ -146,6 +146,7 @@ It will up the user web version.
 ## Things to improve
 
 - [ ] Make a responsive website;
+- [ ] Make a docker to run this project;
 - [ ] Use a supabase to db;
 - [ ] Use a Heroku to the backend repository individual;
 - [ ] Use a GitHubPages os another to up the user view page;
